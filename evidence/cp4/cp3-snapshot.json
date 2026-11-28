@@ -1,0 +1,16 @@
+{
+  "baseline_commit": "c9246a27da9a3238d8015819873ab71279375530",
+  "normalization": "Replace CRLF with LF only; retain BOM, whitespace, row order and all other bytes.",
+  "files": {
+    "evidence/public-reviews/reviews.csv": "97c506cd854ab01be21498a0c99879a3777927c0890f1182fd5c78fb71e9221f",
+    "evidence/public-reviews/counts.json": "0850250989e6c6438afc5d34933b2ebcb3e55047c9c90a7e833fa676e15a1516",
+    "evidence/public-reviews/collection.json": "dc97b1dac2201bb6fc08a36d41ad92ab1ee3f235fb642772cb2d764c17c7a68b",
+    "evidence/source-cases.csv": "c9f984260953a694b9998c5cfe35161ad8f4d6ad2ef8f33ff8c5551341e52e38",
+    "evidence/impact-inputs.json": "5afda430ee003731d8e5a1c7b9a04c2fababb0ac7469d9325506dd0a636da64e",
+    "evidence/coding-protocol.md": "490272599df06b885ba4710a07fd16db5adeec2fd6de8b4e41be9438282b93a8",
+    "evidence/collection-plan.md": "337d8193d764f85ae8e26316ce4dbe2003673add28ba27644f06869df367f0fb",
+    "evidence/data-mining.md": "4e245275fca5061488ab85b7f26e74cda577e2f76e682b237004ca83c16e1e99",
+    "evidence/hypothesis.md": "e729635b6800a1f0e9ae77bfa039adb654473ecb335d05352f758ba418cf5c67",
+    "evidence/count.py": "12c44aaa0b477038c01f686b88b06c93087183656eb7b9943ef1d98877c7d29e"
+  }
+}

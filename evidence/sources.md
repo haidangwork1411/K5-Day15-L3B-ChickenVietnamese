@@ -29,3 +29,17 @@ lát cắt, ca cần xác minh và ca ngoài phạm vi dùng thử boundary/esca
 chính sách là tình huống được văn bản mô tả, không phải sự kiện người dùng đã quan sát.
 TV4 phải xác nhận tính đủ khác bản chất và source eligibility trước khi chốt ít
 nhất 7/20 case thật; không chia một chuyện thành nhiều case để đủ tỷ lệ.
+
+## Nguồn bổ sung CP4
+
+[Ledger CP4](cp4/supplemental-sources.json) lưu riêng sáu nguồn đã đọc ngày
+28/11/2026, vị trí đoạn trích, ngày xuất bản khi hiển thị và hash excerpt.
+[Phương pháp và bảng nguồn](cp4/README.md) phân biệt hai báo cáo nền tảng
+CP4P01–CP4P02 với bốn bài gốc CP4R01–CP4R04 ở bối cảnh Singapore.
+Chỉ bài gốc nằm trong mẫu số bốn; không cộng vào AP01 hoặc ledger benchmark.
+Các trang không truy cập được được ghi riêng, không suy nội dung từ snippet.
+
+Nguồn mới hỗ trợ nhận định có phản ánh trực tiếp thiếu món và khó bồi hoàn;
+không chứng minh tỷ lệ tại Việt Nam, nguyên nhân khách thiếu thông tin hoặc
+hiệu quả của trợ lý. Những số quy mô và persona trong [bàn giao TV4](cp4/cost-handoff.json)
+là tự ước tính, không trích ra từ báo cáo nền tảng hoặc lịch sử người đăng.

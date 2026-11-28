@@ -1,0 +1,141 @@
+{
+  "accessed_on": "2026-11-28",
+  "collected_by": "AI-assisted browsing and excerpt coding",
+  "method": "Exploratory purposive source search, not a prevalence sample; one original post per unit; comments excluded.",
+  "search_queries": [
+    "site.reddit.com/r/VietNam ShopeeFood missing items refund",
+    "site.reddit.com/r/grabfood missing item refund",
+    "site.reddit.com/r/VietNam \"missing\" \"Grab\" food refund",
+    "site.reddit.com \"Shopeefood\" \"thiếu món\"",
+    "site.grab.com/vn \"thiếu món\" \"hoàn\""
+  ],
+  "selection_rules": [
+    "Include accessible primary platform reports relevant to missing food and original first-person posts explicitly reporting a received order with missing items.",
+    "Keep the resolved/redelivered counterexample; do not split comments or multiple incidents in one post into independent observations.",
+    "Exclude inaccessible pages from evidence; omit author names, account names, contact details and raw order records.",
+    "Store at most two short sentences and 25 source words per page. Exact publication date remains null unless displayed."
+  ],
+  "access_limitations": [
+    {
+      "source_url": "https://www.reddit.com/r/Bangkok/comments/1ey6ybf/",
+      "result": "Cache miss then timeout; not used as evidence"
+    },
+    {
+      "source_url": "https://dineout.grab.com/vn/en/restaurants/mi-cay-tacos-ga-ran-changho-phan-van-hon-ho-chi-minh--5-C7AWELJKCU22A6",
+      "result": "Cache miss; search snippet not treated as verified review"
+    }
+  ],
+  "records": [
+    {
+      "id": "CP4P01",
+      "kind": "publisher_report",
+      "market": "regional",
+      "title": "How we taught LLMs to solve the missing muffins mystery",
+      "source_url": "https://www.grab.com/inside-grab/stories/how-we-taught-llms-to-solve-the-missing-muffins-mystery/",
+      "published_on": "2026-08-14",
+      "date_display": "August 14, 2026",
+      "locator": "Opening section, paragraph describing MIWI support reports",
+      "excerpt": "Missing or wrong item (MIWI) issues are one of the most commonly reported support problems in our app.",
+      "interpretation": "Grab tự báo cáo thiếu/sai món là nhóm vấn đề hỗ trợ thường gặp; ví dụ có thiếu thành phần và thiếu số lượng.",
+      "limits": "Báo cáo của doanh nghiệp, gộp thiếu với sai món, không có N hoặc tỷ lệ riêng Việt Nam; không chứng minh hiệu quả prototype hay phút tiết kiệm.",
+      "missing_food": null,
+      "complaint_difficulty": null,
+      "accessed_on": "2026-11-28",
+      "excerpt_sha256": "148070fac87a428a2e937fa5f8ea6a7152c0545f9cb9bb5c5f8eaf7fdd666528"
+    },
+    {
+      "id": "CP4P02",
+      "kind": "publisher_report",
+      "market": "VN",
+      "title": "Tăng đơn hiệu quả, Khách gửi 5 sao nhờ 4 Mẹo vận hành cơ bản",
+      "source_url": "https://merchant.shopeefood.vn/edu/article/chien-luoc-van-hanh-nhom-mon-an-hieu-qua-tu-goc-nhin-danh-gia-cua-khach-hang",
+      "published_on": null,
+      "date_display": "Trang không hiển thị ngày xuất bản rõ ràng",
+      "locator": "Mục 2, đoạn ngay sau hình các yếu tố Khách hàng mong muốn cải thiện",
+      "excerpt": "Giao sai/ thiếu món là vấn đề thường nhận nhiều đánh giá không tốt từ Khách hàng nhất",
+      "interpretation": "ShopeeFood xác nhận nhóm sai/thiếu món trong nội dung đào tạo vận hành cho quán tại Việt Nam.",
+      "limits": "Trang có số 31.2% nhưng không công bố mẫu số/kỳ đo trong phần văn bản; gộp sai và thiếu. Không dùng làm tỷ lệ thiếu món hoặc đầu vào impact.",
+      "missing_food": null,
+      "complaint_difficulty": null,
+      "accessed_on": "2026-11-28",
+      "excerpt_sha256": "a3b1e3b93c7cc607ea4ad5f8da093bb07efba9ded619ada9412306b97f1810e4"
+    },
+    {
+      "id": "CP4R01",
+      "kind": "public_user_post",
+      "market": "SG_context",
+      "title": "Grab greed is taking it too far",
+      "source_url": "https://www.reddit.com/r/singapore/comments/1e4euuk/grab_greed_is_taking_it_too_far/",
+      "published_on": null,
+      "date_display": "2y ago trên trang khi đọc; không suy ngày tuyệt đối",
+      "locator": "Bài gốc, câu đầu và đoạn kế tiếp về voucher; không lấy bình luận",
+      "excerpt": "The merchant missed out an item in my GrabFood order.",
+      "interpretation": "Người đăng tự báo thiếu một món và bất mãn vì giá trị bồi hoàn bị chia thành voucher có điều kiện sử dụng.",
+      "limits": "Tự báo cáo, không xác minh giao dịch; diễn đàn Singapore không xác nhận nơi ở hoặc chính sách Việt Nam; không biết thời gian thao tác.",
+      "missing_food": 1,
+      "complaint_difficulty": 1,
+      "accessed_on": "2026-11-28",
+      "excerpt_sha256": "b333d522f0363e009293c2a6342a45a87a4889722d5a32fec2e21ab463ed1a44"
+    },
+    {
+      "id": "CP4R02",
+      "kind": "public_user_post",
+      "market": "SG_context",
+      "title": "How to contact GrabFood Support",
+      "source_url": "https://www.reddit.com/r/askSingapore/comments/1js3e9a/how_to_contact_grabfood_support/",
+      "published_on": null,
+      "date_display": "1y ago trên trang khi đọc; không suy ngày tuyệt đối",
+      "locator": "Bài gốc, đoạn mở đầu về phần món thiếu và đoạn hỏi cách liên hệ",
+      "excerpt": "upon delivery, the whole Samyang Double Down was missing.",
+      "interpretation": "Người đăng nói thiếu một phần trong combo, không hài lòng voucher và không tìm được cách gọi hỗ trợ.",
+      "limits": "Tự báo cáo, không xác minh giá từng phần combo; không chứng minh vấn đề do khách không cung cấp đúng tên món; không phải nguồn Việt Nam.",
+      "missing_food": 1,
+      "complaint_difficulty": 1,
+      "accessed_on": "2026-11-28",
+      "excerpt_sha256": "ff0f58bc45db6f531b976e11ba083d5b17a53a501f8052b3fb523f26ac7731c2"
+    },
+    {
+      "id": "CP4R03",
+      "kind": "public_user_post",
+      "market": "SG_context",
+      "title": "Grab delivery guy missed out several items and later brought the food",
+      "source_url": "https://www.reddit.com/r/askSingapore/comments/1r8rozd/grab_delivery_guy_missed_out_several_items_i/",
+      "published_on": null,
+      "date_display": "8mo ago trên trang khi đọc; không suy ngày tuyệt đối",
+      "locator": "Bài gốc, câu đầu; ngữ cảnh tiếp theo là đã được hoàn và được giao bổ sung",
+      "excerpt": "As written, my grabfood delivery was missing items but the guy made a trip to bring it to me.",
+      "interpretation": "Thiếu nhiều món rồi được giao bổ sung và đã nhận hoàn; minh họa ranh giới tránh bồi thường lặp, không phải case vẫn đang thiếu đúng một món.",
+      "limits": "Tự báo cáo, không xác minh giao dịch; không tự gắn nhãn khó hỗ trợ chỉ vì cần điều chỉnh tiền sau xử lý.",
+      "missing_food": 1,
+      "complaint_difficulty": 0,
+      "accessed_on": "2026-11-28",
+      "excerpt_sha256": "6456f2d5fbf66b45874cfe5526dca0e74fd06dabbbd15594caa59fdffbe81a1a"
+    },
+    {
+      "id": "CP4R04",
+      "kind": "public_user_post",
+      "market": "SG_context",
+      "title": "Increase in Grabfood service failures but Grabfood refuses refund",
+      "source_url": "https://www.reddit.com/r/singapore/comments/1b6avab/increase_in_grabfood_service_failures_but/",
+      "published_on": null,
+      "date_display": "3y ago trên trang khi đọc; không suy ngày tuyệt đối",
+      "event_date_reported": "2024-02-16",
+      "locator": "Bài gốc, dòng sự cố 16/2/2024; […] bỏ phần giá trong ngoặc",
+      "excerpt": "ordered two cups of soya bean milk […] but only received one. Grab refused to refund me.",
+      "interpretation": "Người đăng tự báo đặt hai cốc, nhận một cốc và bị từ chối hoàn; bài cũng kể sai món ở sự cố khác, không gộp thành thiếu món.",
+      "limits": "Ngày sự cố do người đăng tự nêu, không phải ngày nhóm quan sát; một bài là một đơn vị dù có nhiều sự cố; không suy tần suất bình quân từ lịch sử cá nhân.",
+      "missing_food": 1,
+      "complaint_difficulty": 1,
+      "accessed_on": "2026-11-28",
+      "excerpt_sha256": "1de86e4672b713f07a98d3d616f5d8766159f15b27fa5c1a71b27706095e76d7"
+    }
+  ],
+  "counts": {
+    "publisher_reports": 2,
+    "user_posts": 4,
+    "missing_food_posts": 4,
+    "complaint_difficulty_posts": 3,
+    "both_posts": 3
+  },
+  "denominator_limit": "Counts describe four purposively selected posts only; never merge with AP01 N=150 or infer incidence among users/orders."
+}

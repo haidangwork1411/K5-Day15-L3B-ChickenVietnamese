@@ -1,0 +1,62 @@
+{
+  "status": "proposal_for_TV4_not_applied_to_cost_config",
+  "source": "(tự ước tính) Quy mô N lấy từ sensitivity CP2/CP3; persona và tỷ lệ sử dụng là giả định mới phục vụ mô phỏng, không lấy từ review.",
+  "population_customers": 100,
+  "assistant_uptake_among_affected": 1.0,
+  "users": {
+    "low": 5,
+    "base": 20,
+    "high": 40
+  },
+  "users_denominator": "Monthly active affected customers using the assistant, not all 100 baseline customers and not orders or agents.",
+  "personas": [
+    {
+      "name": "khieu_nai_it",
+      "share": 0.4,
+      "uses_per_month": 1,
+      "turns_per_session": 1,
+      "source": "(tự ước tính) Nhóm ít phiên; share tính trong người dùng trợ lý."
+    },
+    {
+      "name": "khieu_nai_vua",
+      "share": 0.4,
+      "uses_per_month": 2,
+      "turns_per_session": 2,
+      "source": "(tự ước tính) Có lượt bổ sung thông tin; chưa có log hội thoại để xác nhận."
+    },
+    {
+      "name": "khieu_nai_nhieu",
+      "share": 0.2,
+      "uses_per_month": 3,
+      "turns_per_session": 3,
+      "source": "(tự ước tính) Nhiều phiên/lượt bổ sung; một phiên là một sự cố, không phải một lần hoàn tiền."
+    }
+  ],
+  "sessions_per_assistant_user_month": 1.8,
+  "turns_per_assistant_user_month": 3.8,
+  "traffic": {
+    "low": {
+      "sessions_per_month": 9,
+      "turns_per_month": 19
+    },
+    "base": {
+      "sessions_per_month": 36,
+      "turns_per_month": 76
+    },
+    "high": {
+      "sessions_per_month": 72,
+      "turns_per_month": 152
+    }
+  },
+  "base_loss": {
+    "affected_people": 20,
+    "events_per_affected_person_month": 1.8,
+    "active_minutes_per_event": 15,
+    "sessions_per_month": 36,
+    "active_minutes_per_month": 540,
+    "minutes_per_affected_person_month": 27,
+    "minutes_per_baseline_customer_month": 5.4
+  },
+  "observed_savings_minutes": null,
+  "limits": "Traffic scenarios vary only N while keeping persona frequency fixed. Original impact sensitivity varies N, F and C together and remains separate. Stateless answer() has no cross-turn memory; simulated turns are independent calls. Real usage, time saved, adoption and cost need measurement by TV4."
+}
