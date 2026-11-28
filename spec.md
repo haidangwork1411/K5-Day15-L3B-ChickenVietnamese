@@ -95,7 +95,7 @@ Trong 150 trích đoạn review ShopeeFood VN, **18/150 (12%)** phản ánh khó
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 20 câu (thuong 4 · kho 14 · tu_choi 2), gồm 7/20 câu từ review có nguồn · metric: `eval/metric_spec.yaml` (3 metric)
 - **Ngưỡng đánh giá:** ≥80% toàn bộ câu; 100% câu yêu cầu đề xuất tiền đúng căn cứ và hạn mức; 100% câu từ chối và ca nguy hiểm.
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "≥80% toàn bộ câu qua; 100% câu yêu cầu đề xuất tiền đúng căn cứ và hạn mức; 100% câu từ chối và ca nguy hiểm qua."
-- Smoke live D01–D03 đạt 3/3 theo [bảng kết quả](docs/connect-model.md#smoke-ernie). Run-1 trên 20 câu chưa chạy, chưa có run ID hoặc điểm theo metric. [Hồ sơ đánh giá](eval/README.md).
+- Smoke live D01–D03 đạt 3/3 theo [bảng kết quả](docs/connect-model.md#smoke-ernie). Run-1 `run-1@20261128-092900` trên commit `970a909cb9533ebadbda9467e28436b1f97b0260` đã thực thi đủ 20 câu, 0 lỗi kỹ thuật. Kết quả nghiệp vụ đạt 20/20 câu: `dung_huong` 20/20, `dung_can_cu` 4/4 và `an_toan` 5/5. [Báo cáo Run-1](eval/report.md).
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
 - Persona + giá: `cost/personas.yaml` · chưa có lượt mô phỏng

@@ -46,10 +46,10 @@ Trên Windows, dùng `.env.example` làm mẫu cho `.env` và chạy `py run.py`
 
 | Thành phần | Trạng thái |
 |---|---|
-| Quyết định trung tâm | ERNIE qua OpenRouter đã đạt 3/3 câu smoke D01–D03 với JSON Schema, đúng món, số tiền và bước nhân viên duyệt. Run-1 trên 20 câu chưa chạy. [Kết quả từng câu](docs/connect-model.md#smoke-ernie). |
+| Quyết định trung tâm | ERNIE qua OpenRouter đã đạt 3/3 câu smoke D01–D03 với JSON Schema, đúng món, số tiền và bước nhân viên duyệt. [Smoke từng câu](docs/connect-model.md#smoke-ernie). Run-1 `run-1@20261128-092900` đã thực thi 20/20 câu, 0 lỗi kỹ thuật. [CSV, trace và số liệu](eval/report.md). |
 | Dataset và giao dịch | Hai đơn, bốn món, một chính sách synthetic. Bản thử chỉ tạo đề xuất hoặc hướng dẫn liên hệ nhân viên. |
-| Evidence | 150 trích đoạn review công khai. 18 đoạn phản ánh khó khăn hỗ trợ/hoàn tiền, 0 đoạn trực tiếp ghi nhận nhận thiếu món. |
-| Benchmark | 20 câu, trong đó 7 câu truy được tới review gốc. Chưa có điểm chính thức hoặc kết quả chấm độc lập. |
+| Evidence | 150 trích đoạn review công khai. 18 đoạn phản ánh khó khăn hỗ trợ/hoàn tiền, 0 đoạn đề cập trực tiếp việc giao thiếu món. |
+| Benchmark | 20 câu, trong đó 7 câu truy được tới review gốc. Run-1 đạt 20/20 câu. Hai người chấm đồng thuận ở 5/5 câu đã chọn. [Kết quả chấm](eval/README.md#3-metric-và-cách-chấm). |
 
 ## Dùng AI vào việc gì
 
@@ -69,8 +69,8 @@ Bằng chứng và giới hạn chọn mẫu nằm trong [tổng hợp nghiên c
 | Bản chạy thử | [Workflow](codebase/agent.py), lệnh demo ở trên |
 | Bộ câu thử và metric | [Hồ sơ đánh giá](eval/README.md) |
 | Chi phí | [Thư mục cost](cost/), thuộc CP4 |
-| Slide và video | Video CP3 chưa quay. Slide demo thuộc CP4. |
+| Slide và video | [Xem video demo AI thật](https://drive.google.com/file/d/1y7jnc8wYgmPQqtxI2iZpvszd4KbUMLkN/view?usp=sharing) (MP4, 29,89 giây). Nhóm đã kiểm tra quyền xem bằng cửa sổ ẩn danh. Slide demo thuộc CP4. |
 
-**Video CP3 (30 giây).** 0–5 giây mở CLI ở chế độ OpenRouter, 5–15 giây nhập `D100 thiếu cơm gà`, 15–25 giây cho thấy output thực tế, 25–30 giây chỉ vào model, token và bước nhân viên duyệt. Giữ key và nội dung `.env` ngoài khung hình.
+Trong video, khách báo `D100 thiếu cơm gà`. Bản thử hiển thị giá món 50.000 VND, đề xuất tối đa 40.000 VND và nêu rõ nhân viên xác minh, quyết định. CLI hiển thị model ERNIE và số token thực tế.
 
-**Nộp CP3.** Đội trưởng dùng mã ở dòng 1 của TEAMS, điền link repo/commit, Spec §0–§7, evidence, benchmark, video, run ID, x/N đã chấm và phần còn thiếu. Đặt video YouTube *Không công khai* hoặc Drive *Bất kỳ ai có đường liên kết* với quyền xem. Mở repo, các link bài và phát thử video trong cửa sổ ẩn danh trước khi nộp. [Các trường theo đề BTC](README-de-goc.md#checkpoint).
+**Giới hạn hồ sơ CP3.** Impact dựa trên giả định cho 100 khách. Hồ sơ chưa ghi nhận câu hỏi nghiên cứu riêng của từng thành viên, hoạt động theo cặp qua các chặng, buổi rà soát nhóm 15 phút hoặc số dòng review đã được kiểm nhãn thủ công. [Nguồn và phạm vi kiểm chứng](evidence/summary.md).

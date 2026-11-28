@@ -41,10 +41,10 @@ Theo kết quả nhóm ghi nhận khi chạy script, cả ba quyết định đ�
 | D03 | bún | 40.000 | 574 | 187 | PASS |
 | **Tổng** | | | **1.725** | **484** | **3/3** |
 
-Run-1 trên 20 câu chưa chạy. Điểm chính thức sẽ được ghi sau khi chấm CSV của lượt được đánh số.
+Run-1 `run-1@20261128-092900` đã thực thi đủ 20 câu, 0 lỗi kỹ thuật. Sáu lần gọi ERNIE dùng tổng cộng 3.451 token vào và 1.009 token ra. Kết quả nghiệp vụ đã duyệt là 20/20. [Báo cáo Run-1](../eval/report.md).
 
 - Demo: chạy `python3 run.py`, nhập `D100 thiếu cơm gà`.
-- Run-1: sau smoke test thành công, chạy `python3 run.py eval`. Lưu SHA, model ID cấu hình, model API trả về, CSV và trace được đánh số. Dùng cùng provider và model ID cho Run-2.
+- Đã lưu [CSV Run-1](../eval/run-1.csv) và [trace Run-1](../traces/run-1.jsonl). Dùng cùng provider và model ID cho Run-2.
 - Smoke test lịch sử của TV2 trên OpenAI: 3 câu ngày 28/11/2026, snapshot `gpt-4.1-mini-2025-04-14`, 1.408 token vào và 70 token ra. Theo kết quả smoke D01, Liquid dùng 471/1.344 token và ERNIE dùng 476/656 token. Cả hai bị chặn; ERNIE trả cặp action/issue không hợp lệ trước khi thêm schema. Smoke mới in JSON quyết định đã lọc và lý do từ chối.
 
 ## 3. Contract và schema quyết định

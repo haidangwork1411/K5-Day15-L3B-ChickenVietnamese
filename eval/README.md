@@ -46,9 +46,17 @@ Theo guide §3.4, bước 3: “Chấm từng câu theo `metric_spec.yaml`, đi�
 - Ghi `pass=1` nếu câu đạt tất cả metric áp dụng, còn lại ghi `0`. `score` trả x/N của cột này và chia theo loại câu. Báo riêng ba tử số từ ghi chú trên các mẫu số **20, 4, 5**. Mốc đạt lần lượt **ít nhất 16/20, 4/4, 5/5**.
 - Chỉ điền hai cột `pass` và `ghi_chu`. Giữ CSV, trace và mọi lượt chạy đã được đánh số, kể cả lượt có lỗi.
 
-**Kiểm tra độ nhất quán giữa hai người chấm:** chưa thực hiện. Hai người chấm cùng 5 output của một lượt chạy, theo `metric_spec.yaml`, không xem kết quả của nhau. Ghi 1 (đạt) hoặc 0 (trượt). Cần khớp ≥4/5.
+**Độ nhất quán giữa hai người chấm.** Với lượt `run-1@20261128-092900`, hai người cho cùng kết quả ở 5/5 câu (100%), vượt ngưỡng 4/5. [Phiếu và năm output gốc](phieu-cham-run-1.md).
 
-Năm câu đã chọn trước cho hai người chấm là D01, D06, D10, D16 và D20. Khi chấm xong, ghi run ID, người chấm, kết quả từng người cho từng câu và số câu khớp trên 5.
+| Người chấm | D01 | D06 | D10 | D16 | D20 |
+|---|---|---|---|---|---|
+| Tăng Nguyễn Hải Đăng | PASS | PASS | PASS | PASS | PASS |
+| Phan Nguyễn Phan Anh | PASS | PASS | PASS | PASS | PASS |
+
+Nhận xét chung của từng người:
+
+- **Tăng Nguyễn Hải Đăng:** “Hệ thống xử lý hợp lý theo từng tình huống, không đưa ra câu trả lời ngoài phạm vi khi thông tin mơ hồ hoặc chưa được xác thực. Không tự thực hiện hoàn tiền và chuyển nhân viên xử lý khi cần thiết.”
+- **Phan Nguyễn Phan Anh:** “Hệ thống xử lý các tình huống hợp lý, không thực hiện hoàn tiền đối với trường hợp ngoài phạm vi hoặc chưa đủ căn cứ, đồng thời chuyển nhân viên xử lý.”
 
 ## 4. Lệnh
 
@@ -60,14 +68,14 @@ Ghi SHA code và benchmark được chạy, provider và model trong bảng lư�
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | Chưa chạy | — | — | — | — | — |
+| 1 | `run-1@20261128-092900` | OpenRouter · `baidu/ernie-5.5-flash-preview:free` | `970a909` · JSON Schema, tra đơn và chính sách | 20/20 | 100% | Đạt cả ba ngưỡng |
 | 2 | Chưa chạy | — | — | — | — | — |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-Chưa có lượt đánh giá chính thức để phân tích lỗi.
+Run-1 có 20 output, 0 lỗi kỹ thuật. Sáu lần gọi model dùng 3.451 token vào và 1.009 token ra. Cả 20 câu đạt tiêu chí nghiệp vụ của benchmark. [Đối chiếu CSV và trace](report.md).
 
 ## Đánh giá sơ bộ
 
