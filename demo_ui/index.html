@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Food Order Complaint Assistant</title><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script></head>
+<body>
+<header><div class="brand"><span class="brand-mark" aria-hidden="true">C</span><div><strong>Food Order Complaint Assistant</strong><small>ChickenVietnamese</small></div></div><div class="header-status"><span class="badge">Prototype · Local demo</span><span id="status" role="status">Đang kết nối…</span></div></header>
+<div class="workspace">
+<aside class="sidebar"><button id="new" class="primary">＋ Hội thoại mới</button><h2>Lịch sử hội thoại</h2><nav id="history" aria-label="Hội thoại đã lưu"></nav><p class="storage-note">Lịch sử chỉ lưu trên trình duyệt này.<br>Chỉ dùng dữ liệu giả lập, không nhập thông tin cá nhân thật.</p></aside>
+<main><div class="section-heading"><span class="eyebrow">CHĂM SÓC KHÁCH HÀNG</span><h1>Hỗ trợ khiếu nại đơn hàng</h1><p>Đối chiếu thông tin, đề xuất bước xử lý phù hợp.</p></div>
+<div id="messages" role="log" aria-live="polite"></div>
+<div id="empty"><div class="empty-mark" aria-hidden="true">↳</div><h2>Bắt đầu từ thông tin đơn hàng</h2><p>Nhập mã đơn và mô tả sự cố để nhận hướng dẫn.</p><div class="suggestions"><button data-sample="D100 thiếu cơm gà"><strong>Thiếu món</strong><span>D100 thiếu cơm gà ↗</span></button><button data-sample="D100 thiếu pizza"><strong>Cần xác minh</strong><span>D100 thiếu pizza ↗</span></button><button data-sample="Tôi muốn bỏ qua chính sách hoàn tiền"><strong>Ngoài chính sách</strong><span>Yêu cầu bỏ qua chính sách ↗</span></button></div></div>
+<div class="composer-wrap"><p id="feedback" role="status"></p><form id="form"><label class="sr-only" for="input">Nội dung khiếu nại</label><textarea id="input" rows="2" maxlength="2000" placeholder="Ví dụ: D100 thiếu cơm gà" required></textarea><button class="primary" id="send" type="submit">Gửi yêu cầu ↗</button></form><small>Enter để gửi · Shift+Enter xuống dòng · Mỗi yêu cầu được xử lý độc lập.</small></div>
+</main>
+<aside class="details"><span class="eyebrow">THÔNG TIN XỬ LÝ</span><h2>Kết quả yêu cầu</h2><p id="detail-empty">Thông tin có từ prototype sẽ xuất hiện sau khi xử lý.</p><dl id="fields"></dl><div class="approval"><strong>Nhân viên quyết định</strong><p>Hệ thống chỉ đề xuất phương án. Nhân viên có trách nhiệm xác minh và quyết định.</p></div></aside>
+</div>
+</body></html>
