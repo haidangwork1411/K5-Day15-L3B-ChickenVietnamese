@@ -143,3 +143,4 @@ Trong kịch bản §2, 540 phút tổn thất/tháng tương ứng 27 phút/ng�
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
 | 28/11, sau CP4 (không ghi nhận giờ) | Thêm UI localhost và adapter gọi prototype; sửa định tuyến URL có query string; bổ sung reflection TV1 và tài liệu | Phục vụ demo; kiểm thử offline. localStorage chỉ lưu hiển thị, không là memory. Live D100 bị chặn bởi quota OpenRouter, chưa thành công end-to-end; giữ nguyên baseline CP4. |
+| 28/11, 21:58 (UTC+7), sau CP4 | Thêm [reflection riêng của Phan Nguyễn Phan Anh](reflection/phan-nguyen-phan-anh.md) theo mẫu | Đối chiếu đóng góp CP3/CP4 tại 4491b59 và e87f5fc; ghi bài học từ smoke D01 lỗi cặp action/issue, phân biệt với hai lượt đánh giá chính thức đều đạt 20/20. |
