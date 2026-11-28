@@ -164,7 +164,12 @@ def answer(text: str, *, on_decision=None) -> dict:
         if decision["item"] is not None or decision["amount"] is not None:
             return _invalid_decision("quyết định không đề xuất nhưng vẫn chứa món/tiền")
         if action == "ask":
-            return {"output": "Vui lòng xác nhận đúng một món thiếu thuộc đơn và thông tin còn mơ hồ; không tự suy đoán."}
+            return {"output": (
+                "Vui lòng mở chi tiết đơn hàng để đối chiếu và gửi lại đúng tên "
+                "một món đã đặt nhưng chưa nhận. "
+                'Ví dụ: "Tôi chưa nhận món [tên món trong đơn]". '
+                "Nhân viên xác minh và quyết định hướng xử lý."
+            )}
         if action == "refuse":
             return {"output": "Từ chối yêu cầu ngoài chính sách hoặc thông tin cá nhân; chuyển nhân viên xử lý."}
         return _handoff("trường hợp cần kiểm tra ngoài phạm vi thiếu một món")
