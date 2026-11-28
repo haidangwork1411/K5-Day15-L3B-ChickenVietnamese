@@ -40,7 +40,7 @@ def calculate(path):
         "review_date_min": min(row["review_date"] for row in rows),
         "review_date_max": max(row["review_date"] for row in rows),
         "coded_by": "AI-assisted excerpt coding; human review pending",
-        "snapshot_sha256": hashlib.sha256(path.read_bytes()).hexdigest()}
+        "snapshot_sha256": hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()}
 
 
 def main():
