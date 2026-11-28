@@ -1,0 +1,51 @@
+﻿run_id,session,persona,turns,inputs,model,model_calls,tool_calls,tokens_in,tokens_out,latency_s,error,tokens_by_model
+simulate-1@20261128-122133,S001,khieu_nai_vua,2,D100 thiếu cơm gà ‖ D100 nghi ngộ độc,baidu/ernie-5.5-flash-preview:free,1,2,576,144,1.967,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 576, ""out"": 144}}"
+simulate-1@20261128-122133,S002,khieu_nai_it,1,D999 thiếu trà,,0,1,0,0,0.001,,{}
+simulate-1@20261128-122133,S003,khieu_nai_vua,2,D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở ‖ D101 thiếu bún,baidu/ernie-5.5-flash-preview:free,1,2,574,126,1.528,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 574, ""out"": 126}}"
+simulate-1@20261128-122133,S004,khieu_nai_vua,2,D100 thiếu trà ‖ D100 thiếu cơm gà,baidu/ernie-5.5-flash-preview:free,2,4,1151,221,2.236,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 1151, ""out"": 221}}"
+simulate-1@20261128-122133,S005,khieu_nai_it,1,D101 dị vật trong bún,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S006,khieu_nai_vua,2,D100 thiếu cơm gà ‖ D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở,baidu/ernie-5.5-flash-preview:free,1,2,576,150,1.433,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 576, ""out"": 150}}"
+simulate-1@20261128-122133,S007,khieu_nai_it,1,D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S008,khieu_nai_vua,2,"App không hỗ trợ, tài xế không hỗ trợ, lỡ đặt nhầm địa chỉ hay số điện thoại thì ‖ D100 nghi ngộ độc",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S009,khieu_nai_nhieu,3,D100 thiếu cơm gà ‖ D100 thiếu pizza ‖ Quá tệ đã trừ tiền nhưng đơn lại ko thành công và cũng chả hoàn tiền j cả,baidu/ernie-5.5-flash-preview:free,2,4,1151,250,2.824,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 1151, ""out"": 250}}"
+simulate-1@20261128-122133,S010,khieu_nai_it,1,D999 thiếu trà,,0,1,0,0,0.001,,{}
+simulate-1@20261128-122133,S011,khieu_nai_it,1,bộ phận chăm sóc khách hàng mà coi khách hàng như rác những bằng chứng đã có gửi,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S012,khieu_nai_it,1,"lên gửi mail nhưng không hoàn tiền lại cho tôi, nhắn cả page vẫn kêu đợi 48h như",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S013,khieu_nai_it,1,r đợi nch với nv hỗ trợ tốn hết cả thgian ai rảnh đâu mà canh.,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S014,khieu_nai_vua,2,"D100 thiếu trà ‖ App không hỗ trợ, tài xế không hỗ trợ, lỡ đặt nhầm địa chỉ hay số điện thoại thì",baidu/ernie-5.5-flash-preview:free,1,2,575,111,1.371,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 575, ""out"": 111}}"
+simulate-1@20261128-122133,S015,khieu_nai_vua,2,"lên gửi mail nhưng không hoàn tiền lại cho tôi, nhắn cả page vẫn kêu đợi 48h như ‖ D101 thiếu bún",baidu/ernie-5.5-flash-preview:free,1,2,574,126,1.178,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 574, ""out"": 126}}"
+simulate-1@20261128-122133,S016,khieu_nai_vua,2,r đợi nch với nv hỗ trợ tốn hết cả thgian ai rảnh đâu mà canh. ‖ D100 thiếu trà và cơm gà,baidu/ernie-5.5-flash-preview:free,1,2,578,82,1.674,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 578, ""out"": 82}}"
+simulate-1@20261128-122133,S017,khieu_nai_vua,2,D100 thiếu trà ‖ D101 dị vật trong bún,baidu/ernie-5.5-flash-preview:free,1,2,575,113,1.152,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 575, ""out"": 113}}"
+simulate-1@20261128-122133,S018,khieu_nai_vua,2,D101 thiếu bún ‖ D101 dị vật trong bún,baidu/ernie-5.5-flash-preview:free,1,2,574,150,1.866,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 574, ""out"": 150}}"
+simulate-1@20261128-122133,S019,khieu_nai_nhieu,3,"lên gửi mail nhưng không hoàn tiền lại cho tôi, nhắn cả page vẫn kêu đợi 48h như ‖ D100 nghi ngộ độc ‖ App không hỗ trợ, tài xế không hỗ trợ, lỡ đặt nhầm địa chỉ hay số điện thoại thì",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S020,khieu_nai_vua,2,r đợi nch với nv hỗ trợ tốn hết cả thgian ai rảnh đâu mà canh. ‖ D100 thiếu pizza,baidu/ernie-5.5-flash-preview:free,1,2,575,247,1.692,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 575, ""out"": 247}}"
+simulate-1@20261128-122133,S021,khieu_nai_it,1,D100 thiếu trà và cơm gà,baidu/ernie-5.5-flash-preview:free,1,2,578,144,1.586,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 578, ""out"": 144}}"
+simulate-1@20261128-122133,S022,khieu_nai_vua,2,D101 thiếu bún ‖ D100 thiếu pizza,baidu/ernie-5.5-flash-preview:free,2,4,1149,198,2.635,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 1149, ""out"": 198}}"
+simulate-1@20261128-122133,S023,khieu_nai_vua,2,D101 dị vật trong bún ‖ D100 thiếu pizza,baidu/ernie-5.5-flash-preview:free,1,2,575,425,2.691,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 575, ""out"": 425}}"
+simulate-1@20261128-122133,S024,khieu_nai_vua,2,D100 nghi ngộ độc ‖ D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S025,khieu_nai_it,1,bộ phận chăm sóc khách hàng mà coi khách hàng như rác những bằng chứng đã có gửi,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S026,khieu_nai_nhieu,3,D100 thiếu trà ‖ D101 dị vật trong bún ‖ D100 thiếu trà,baidu/ernie-5.5-flash-preview:free,2,4,1150,379,3.976,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 1150, ""out"": 379}}"
+simulate-1@20261128-122133,S027,khieu_nai_nhieu,3,"lên gửi mail nhưng không hoàn tiền lại cho tôi, nhắn cả page vẫn kêu đợi 48h như ‖ D100 nghi ngộ độc ‖ D101 thiếu bún",baidu/ernie-5.5-flash-preview:free,1,2,574,110,1.808,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 574, ""out"": 110}}"
+simulate-1@20261128-122133,S028,khieu_nai_it,1,bộ phận chăm sóc khách hàng mà coi khách hàng như rác những bằng chứng đã có gửi,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S029,khieu_nai_it,1,không thì tự huỷ không hoàn tiền và cũng không giao hàng.,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S030,khieu_nai_it,1,"App không hỗ trợ, tài xế không hỗ trợ, lỡ đặt nhầm địa chỉ hay số điện thoại thì",,0,0,0,0,0.001,,{}
+simulate-1@20261128-122133,S031,khieu_nai_it,1,D999 thiếu trà,,0,1,0,0,0.0,,{}
+simulate-1@20261128-122133,S032,khieu_nai_it,1,D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S033,khieu_nai_vua,2,"Quá tệ đã trừ tiền nhưng đơn lại ko thành công và cũng chả hoàn tiền j cả ‖ lên gửi mail nhưng không hoàn tiền lại cho tôi, nhắn cả page vẫn kêu đợi 48h như",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S034,khieu_nai_it,1,D999 thiếu trà,,0,1,0,0,0.001,,{}
+simulate-1@20261128-122133,S035,khieu_nai_vua,2,D101 thiếu bún ‖ D100 thiếu trà,baidu/ernie-5.5-flash-preview:free,2,4,1149,359,3.293,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 1149, ""out"": 359}}"
+simulate-1@20261128-122133,S036,khieu_nai_nhieu,3,D999 thiếu trà ‖ D100 thiếu pizza ‖ Quá tệ đã trừ tiền nhưng đơn lại ko thành công và cũng chả hoàn tiền j cả,baidu/ernie-5.5-flash-preview:free,1,3,575,90,1.282,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 575, ""out"": 90}}"
+simulate-1@20261128-122133,S037,khieu_nai_vua,2,"lên gửi mail nhưng không hoàn tiền lại cho tôi, nhắn cả page vẫn kêu đợi 48h như ‖ lên gửi mail nhưng không hoàn tiền lại cho tôi, nhắn cả page vẫn kêu đợi 48h như",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S038,khieu_nai_vua,2,"App không hỗ trợ, tài xế không hỗ trợ, lỡ đặt nhầm địa chỉ hay số điện thoại thì ‖ Không có tổng đài hỗ trợ, shipper không giao hàng, không gọi mà báo gọi không đư",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S039,khieu_nai_it,1,D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S040,khieu_nai_nhieu,3,D100 thiếu cơm gà ‖ Đơn thiếu món ‖ D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở,baidu/ernie-5.5-flash-preview:free,1,2,576,101,1.221,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 576, ""out"": 101}}"
+simulate-1@20261128-122133,S041,khieu_nai_vua,2,bộ phận chăm sóc khách hàng mà coi khách hàng như rác những bằng chứng đã có gửi ‖ Đơn thiếu món,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S042,khieu_nai_it,1,D100 thiếu pizza,baidu/ernie-5.5-flash-preview:free,1,2,575,204,2.64,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 575, ""out"": 204}}"
+simulate-1@20261128-122133,S043,khieu_nai_vua,2,"D100 nghi ngộ độc ‖ Không có tổng đài hỗ trợ, shipper không giao hàng, không gọi mà báo gọi không đư",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S044,khieu_nai_vua,2,"Không có tổng đài hỗ trợ, shipper không giao hàng, không gọi mà báo gọi không đư ‖ Đơn thiếu món",,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S045,khieu_nai_nhieu,3,"D101 thiếu nước ‖ Không có tổng đài hỗ trợ, shipper không giao hàng, không gọi mà báo gọi không đư ‖ D100 thiếu trà và cơm gà",baidu/ernie-5.5-flash-preview:free,2,4,1151,186,2.468,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 1151, ""out"": 186}}"
+simulate-1@20261128-122133,S046,khieu_nai_it,1,D100 thiếu pizza,baidu/ernie-5.5-flash-preview:free,1,2,575,111,1.828,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 575, ""out"": 111}}"
+simulate-1@20261128-122133,S047,khieu_nai_vua,2,"Không có tổng đài hỗ trợ, shipper không giao hàng, không gọi mà báo gọi không đư ‖ D100 thiếu cơm gà",baidu/ernie-5.5-flash-preview:free,1,2,576,114,1.254,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 576, ""out"": 114}}"
+simulate-1@20261128-122133,S048,khieu_nai_vua,2,không thì tự huỷ không hoàn tiền và cũng không giao hàng. ‖ D100 thiếu cơm gà,baidu/ernie-5.5-flash-preview:free,1,2,576,159,1.382,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 576, ""out"": 159}}"
+simulate-1@20261128-122133,S049,khieu_nai_it,1,r đợi nch với nv hỗ trợ tốn hết cả thgian ai rảnh đâu mà canh.,,0,0,0,0,0.0,,{}
+simulate-1@20261128-122133,S050,khieu_nai_nhieu,3,D101 thiếu nước ‖ D101 dị vật trong bún ‖ D100 thiếu trà,baidu/ernie-5.5-flash-preview:free,2,4,1148,407,3.546,,"{""baidu/ernie-5.5-flash-preview:free"": {""in"": 1148, ""out"": 407}}"

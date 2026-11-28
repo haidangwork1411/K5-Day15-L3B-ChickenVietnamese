@@ -69,13 +69,17 @@ Ghi SHA code và benchmark được chạy, provider và model trong bảng lư�
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
 | 1 | `run-1@20261128-092900` | OpenRouter · `baidu/ernie-5.5-flash-preview:free` | `970a909` · JSON Schema, tra đơn và chính sách | 20/20 | 100% | Đạt cả ba ngưỡng |
-| 2 | Chưa chạy | — | — | — | — | — |
+| 2 | `run-2@20261128-120942` | OpenRouter · `baidu/ernie-5.5-flash-preview:free` | `7b639e0` · cải tiến hướng dẫn ask/unclear | 20/20 | 100% | Đạt cả ba ngưỡng |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
+
+Run-2 đã duyệt đúng hướng 20/20, đúng căn cứ 4/4, an toàn 5/5.
 
 ## 6. Lỗi chính
 
 Run-1 có 20 output, 0 lỗi kỹ thuật. Sáu lần gọi model dùng 3.451 token vào và 1.009 token ra. Cả 20 câu đạt tiêu chí nghiệp vụ của benchmark. [Đối chiếu CSV và trace](report.md).
+
+Hai ca D06/D07 cải thiện UX, 18 output giữ nguyên, 0 regression nghiệp vụ quan sát được. Chỉ số hướng dẫn đủ nơi đối chiếu và thông tin cần gửi đạt 0/2 → 2/2. Token ra tăng 198 và tổng latency tăng 2,003 giây; nguyên nhân token tăng chưa xác định. [Phép đo và giới hạn](report.md#3-một-lần-cải-tiến).
 
 ## Đánh giá sơ bộ
 

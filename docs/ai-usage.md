@@ -10,3 +10,11 @@
 | Tích hợp và tài liệu | Codex | Hỗ trợ tích hợp OpenRouter, kiểm thử định tuyến và xử lý JSON, kiểm tra checksum và cập nhật tài liệu kỹ thuật | Nhóm xác nhận smoke live 3/3 với JSON Schema trên `baidu/ernie-5.5-flash-preview:free` qua OpenRouter. [Số liệu từng ca](connect-model.md#smoke-ernie). | Tăng Nguyễn Hải Đăng |
 
 Chưa thực hiện phỏng vấn hoặc khảo sát. Nguồn review, trích đoạn và kết quả quan sát được lưu trong [hồ sơ evidence](../evidence/summary.md).
+
+Codex hỗ trợ dựng nội dung và source PDF 8 trang từ hồ sơ CP3, kiểm tra bố cục và chuẩn bị Spec CP4. Hải Đăng phụ trách xác nhận nội dung trình bày. Run-2 đã có kết quả được duyệt; chi phí đã đối chiếu simulation chính thức.
+
+Codex hỗ trợ review bản TV2/TV3 trong snapshot cô lập, chạy kiểm thử offline, đối chiếu sáu URL nguồn bổ sung và cập nhật slide dự thảo theo SHA đã merge vào main. Rà nhãn của TV3 là AI-assisted; số kiểm tay có log vẫn là 0, tổng thực tế chưa xác định.
+
+Codex đối chiếu 20 output Run-2 với benchmark và trace, hỗ trợ chấm điểm đã được đội trưởng duyệt và đo chỉ số nội dung hướng dẫn trên D06/D07. Phép đo UX này chưa có người dùng thực nghiệm.
+
+Codex đối chiếu CSV/trace simulation, tái tính bảng chi phí bằng logic khung, cập nhật hồ sơ CP4 và render PDF. Người phụ trách chạy thực nghiệm và duyệt điểm Run-2 là Hải Đăng. Các phép tính chi phí dùng token ERNIE và biểu giá Gemini giả định; chất lượng Gemini chưa đo.
