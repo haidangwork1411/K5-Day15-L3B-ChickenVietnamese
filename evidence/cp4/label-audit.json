@@ -1,0 +1,45 @@
+{
+  "reviewed_on": "2026-11-28",
+  "reviewer_kind": "AI",
+  "method": "Read all 150 saved rows against the existing coding protocol; assess only the 149 visible excerpts. No labels in the CP3 CSV are overwritten.",
+  "rows_inspected": 150,
+  "excerpts_assessable": 149,
+  "unassessable_ids": [
+    "RV113"
+  ],
+  "unflagged_assessable_rows": 146,
+  "pending_adjudication": [
+    {
+      "evidence_id": "RV011",
+      "saved": {
+        "missing_food": 0,
+        "complaint_difficulty": 1
+      },
+      "proposed_complaint_difficulty": 0,
+      "reason": "Đánh giá dịch vụ hỗ trợ chung, chưa nêu cơ chế; cần đối chiếu quy tắc loại lời chê chung chung."
+    },
+    {
+      "evidence_id": "RV119",
+      "saved": {
+        "missing_food": 0,
+        "complaint_difficulty": 1
+      },
+      "proposed_complaint_difficulty": 0,
+      "reason": "Lời chê hỗ trợ chung, chưa nêu cơ chế; cần người phân xử theo protocol."
+    },
+    {
+      "evidence_id": "RV149",
+      "saved": {
+        "missing_food": 0,
+        "complaint_difficulty": 0
+      },
+      "proposed_complaint_difficulty": 1,
+      "reason": "Đoạn trích có việc không cho hoàn; cần xác định phạm vi nhãn hoàn tiền với deal không phải món ăn."
+    }
+  ],
+  "human_confirmed_rows": [],
+  "human_confirmed_count": 0,
+  "human_actual_total": null,
+  "human_status": "Chưa có log kiểm tay được xác nhận; không suy rằng tổng thực tế bằng 0.",
+  "label_accuracy": null
+}

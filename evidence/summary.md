@@ -1,4 +1,4 @@
-# Tổng hợp Research, Evidence & Impact — TV3 / CP3
+# Tổng hợp Research, Evidence & Impact — TV3 / CP4
 
 Ngày thu mẫu: 28/11/2026. Bộ evidence do Vũ Văn Chủ phụ trách, tích hợp từ commit `f865765`.
 
@@ -10,10 +10,11 @@ trang được chọn trước; một trang rỗng, không có mẫu mới nhấ
 **0/150 (0.00%)** excerpt nói trực tiếp nhận thiếu món; giao hai nhãn **0/150**.
 Không suy tỷ lệ người dùng, số đơn hoặc phần trăm khách thiếu món từ các số này.
 
-**Kết luận: cần kiểm thêm/đổi giả thuyết**, không tuyên bố pain thiếu món đã được
-xác nhận. Dấu hiệu về hỗ trợ nói chung có thật trong nguồn công khai, nhưng không
-đủ để nhận định nguyên nhân là khách không biết thông tin khiếu nại cần cung cấp.
-0/150 không chứng minh không ai nhận thiếu món. [Hypothesis](hypothesis.md).
+**Kết luận từ mẫu CP3: cần kiểm thêm/đổi giả thuyết.** Nguồn bổ sung CP4 có lời
+kể trực tiếp về thiếu món ở bối cảnh Singapore và báo cáo của nền tảng về nhóm
+sai/thiếu món. Chưa đủ để đo tỷ lệ tại Việt Nam hoặc nhận định nguyên nhân là
+khách không biết thông tin khiếu nại cần cung cấp. 0/150 không chứng minh không
+ai nhận thiếu món. [Hypothesis CP3](hypothesis.md), [phần bổ sung CP4](cp4/README.md).
 
 ## 2. Nguồn, phương pháp và mức hoàn thành
 
@@ -42,7 +43,9 @@ Benchmark dùng bảy review riêng biệt SC02–SC08 cho D13–D19. Các ca n�
 
 ## 4. Giới hạn khi sử dụng
 
-Mẫu chưa xác nhận trực tiếp pain thiếu món. Kịch bản 540 phút/tháng trong Spec dùng các hệ số tự ước tính. Chưa có kiểm nhãn độc lập hoặc đo hiệu quả với người dùng.
+Mẫu AP01 chưa xác nhận trực tiếp pain thiếu món; không gộp bốn bài gốc được
+tìm có chủ đích ở CP4 vào mẫu số 150. Kịch bản 540 phút/tháng trong Spec dùng
+các hệ số tự ước tính. Chưa có kiểm nhãn độc lập hoặc đo hiệu quả với người dùng.
 
 ## 5. Kiểm tra lại
 
@@ -57,3 +60,19 @@ RV113 không trích vì có thể nêu tên riêng. Không công bố dữ liệ
 email/điện thoại. Không có giấy phép mở cho cả kho; chỉ trích ngắn có nguồn để
 phân tích, không tái phân phối nguyên nội dung. Chưa có người duyệt pháp lý/quyền
 tái sử dụng toàn bộ; không nhận đã được cấp quyền đó.
+
+## 7. Bàn giao CP4
+
+- [Nguồn bổ sung và phương pháp](cp4/README.md): hai báo cáo nền tảng và bốn
+  bài gốc; 4/4 bài tự báo thiếu món, 3/4 phản ánh khó hỗ trợ/bồi hoàn. Mẫu tuyển
+  theo vấn đề, không phải tỷ lệ khách hoặc đơn hàng.
+- [Audit nhãn](cp4/label-audit.json): AI xem 150 dòng, 149 đoạn đủ nội dung,
+  ba nhãn chờ người phân xử; giữ nguyên toàn bộ nhãn CP3. Có 0 dòng kiểm tay có
+  log xác nhận, tổng thực tế chưa xác định.
+- [Impact](impact.md) và [đầu vào TV4](cp4/cost-handoff.json): 100 khách nền,
+  20 khách gặp sự cố ở cơ sở, 36 phiên/tháng, 540 phút tổn thất giả định,
+  27 phút/người gặp và 5,4 phút/khách nền. Không phải tiết kiệm đã đo.
+- [Hoạt động từng thành viên](cp4/research-activity.md): căn cứ Git/tài liệu và
+  phần cần người thật bổ sung; không tạo phỏng vấn, khảo sát hay bonus giả.
+- [Manifest snapshot](cp4/cp3-snapshot.json) và `verify.py` kiểm lại dữ liệu CP3,
+  nguồn CP4 và phép tính mà không gọi mạng hoặc sửa kết quả đã chạy.
