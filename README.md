@@ -78,3 +78,5 @@ Trong video, khách báo `D100 thiếu cơm gà`. Bản thử hiển thị giá 
 **Hồ sơ CP4.** [PDF 8 trang](demo-slides.pdf), [kịch bản demo và phân vai](slides/outline.md), [báo cáo đánh giá](eval/report.md) và [chi phí](cost/cost-estimate.md).
 
 Run-1 và Run-2 đều đạt 20/20. Hướng dẫn D06/D07 đạt đủ hai tiêu chí UX 0/2 → 2/2; 18 output giữ nguyên. Simulation 50 phiên, seed 42, 89 lượt hỏi, 0 lỗi. Chi phí/task giả định $0.00023 hoặc $0.0013 theo hai tầng giá Gemini áp trên token ERNIE. Đề xuất ITERATE vì lợi ích với người dùng và chi phí vận hành đầy đủ chưa đo.
+
+**Bổ sung sau CP4.** Nhóm đã demo trực tiếp. [UI localhost](demo_ui/README.md) dùng cùng prototype và có Mock Mode để thử offline; live D100 bị chặn bởi quota OpenRouter, chưa có kết quả end-to-end thành công qua UI. Lịch sử trình duyệt chỉ để hiển thị, không phải memory. Baseline CP4 giữ nguyên.

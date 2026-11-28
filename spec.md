@@ -142,4 +142,4 @@ Trong kịch bản §2, 540 phút tổn thất/tháng tương ứng 27 phút/ng�
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11, sau CP4 (không ghi nhận giờ) | Thêm UI localhost và adapter gọi prototype; sửa định tuyến URL có query string; bổ sung reflection TV1 và tài liệu | Phục vụ demo; kiểm thử offline. localStorage chỉ lưu hiển thị, không là memory. Live D100 bị chặn bởi quota OpenRouter, chưa thành công end-to-end; giữ nguyên baseline CP4. |

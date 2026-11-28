@@ -18,3 +18,5 @@ Codex hỗ trợ review bản TV2/TV3 trong snapshot cô lập, chạy kiểm th
 Codex đối chiếu 20 output Run-2 với benchmark và trace, hỗ trợ chấm điểm đã được đội trưởng duyệt và đo chỉ số nội dung hướng dẫn trên D06/D07. Phép đo UX này chưa có người dùng thực nghiệm.
 
 Codex đối chiếu CSV/trace simulation, tái tính bảng chi phí bằng logic khung, cập nhật hồ sơ CP4 và render PDF. Người phụ trách chạy thực nghiệm và duyệt điểm Run-2 là Hải Đăng. Các phép tính chi phí dùng token ERNIE và biểu giá Gemini giả định; chất lượng Gemini chưa đo.
+
+Sau CP4, Hải Đăng dùng Codex hỗ trợ dựng và rà soát UI localhost, kiểm thử offline và cập nhật tài liệu; Hải Đăng kiểm tra kết quả và sẽ duyệt thay đổi trước khi commit. Live UI chưa hoàn tất end-to-end do quota OpenRouter đã hết.
