@@ -1,4 +1,4 @@
-"""Nối model — chỗ DUY NHẤT trong bản chạy thử gọi model AI. NHÓM VIẾT phần gọi model thật.
+"""Nối OpenAI — chỗ duy nhất trong bản chạy thử gọi model AI, giữ @model_call.
 
 Hợp đồng (giữ nguyên để khung đo được token):
     call_model(system: str, user: str) -> dict với 4 khoá
@@ -11,13 +11,17 @@ Hợp đồng (giữ nguyên để khung đo được token):
     Lỗi gọi model (hết lượt, sai key, mất mạng): cứ để exception bay ra — khung ghi lỗi vào cột error.
 
 Chế độ giả (mặc định khi .env chưa có MODEL_PROVIDER, hoặc MODEL_PROVIDER=fake):
-    trả một câu giả cố định, model "fake", token 0 — để luồng chạy hết từ trước CP2 (guide bước 3.2).
+    trả quyết định mock đơn giản, model "fake", token 0 — chỉ để kiểm luồng offline.
     Lượt `run.py eval` / `run.py simulate` chạy bằng model giả KHÔNG được tính.
 
-Nối model thật: điền .env (chép từ .env.example), rồi viết nhánh gọi API ở dưới theo docs/connect-model.md
-(có ví dụ OpenAI, Claude, model chạy trên máy, và cách nối nhà cung cấp khác). Không dán API key vào file này.
+Nối model thật: điền .env theo .env.example, MODEL_PROVIDER=openai, MODEL_NAME và
+API_KEY. Bản CP3 dùng Chat Completions JSON mode, lấy token trực tiếp từ usage.
+Không dán API key vào file này hoặc ghi request header/body lỗi vào log.
 """
 import os
+import json
+import urllib.error
+import urllib.request
 
 from tracing import model_call
 
@@ -45,18 +49,64 @@ API_KEY = (os.environ.get("API_KEY") or "").strip()
 
 @model_call
 def call_model(system: str, user: str) -> dict:
-    if MODEL_PROVIDER == "fake" and system == "D1_MOCK_DECISION":
-        # Mock phân loại một tình huống đã được kiểm tra; không gọi API.
-        import json
-        data = json.loads(user)
-        decision = {"action": "propose", "item": data["item"], "amount": min(data["price"], data["max_vnd"])}
-        return {"text": json.dumps(decision, ensure_ascii=False), "model": "fake", "tokens_in": 0, "tokens_out": 0}
     if MODEL_PROVIDER == "fake":
-        last = (user.strip().splitlines() or [""])[-1]
-        return {"text": "[câu trả lời giả — chưa nối model] " + last[:60], "model": "fake", "tokens_in": 0, "tokens_out": 0}
-
-    # NHÓM VIẾT: gọi model thật ở đây (theo MODEL_PROVIDER, MODEL_NAME, API_KEY) rồi trả đúng 4 khoá.
-    # Ví dụ chép được cho từng nhà cung cấp: docs/connect-model.md mục 2.
-    raise NotImplementedError(
-        "chưa viết phần gọi model thật cho MODEL_PROVIDER=%s trong codebase/ai.py — xem docs/connect-model.md"
-        % MODEL_PROVIDER)
+        # Chỉ kiểm luồng offline, không được tính là lượt AI thật.
+        try:
+            data = json.loads(user)
+        except json.JSONDecodeError:
+            return {'text': '[mock] Chưa gọi AI thật.', 'model': 'fake', 'tokens_in': 0, 'tokens_out': 0}
+        if not isinstance(data, dict) or not {'complaint', 'order', 'policy'} <= set(data):
+            return {'text': '[mock] Chưa gọi AI thật.', 'model': 'fake', 'tokens_in': 0, 'tokens_out': 0}
+        complaint = data['complaint'].casefold()
+        items = [item for item in data['order']['items'] if item['name'].casefold() in complaint]
+        decision = {'action': 'ask', 'item': None, 'amount': None, 'issue': 'unclear'}
+        if len(items) == 1 and 'thiếu' in complaint:
+            item = items[0]
+            decision = {'action': 'propose', 'item': item['name'],
+                        'amount': min(item['price'], data['policy']['max_vnd']), 'issue': 'missing'}
+        return {"text": json.dumps(decision, ensure_ascii=False), "model": "fake", "tokens_in": 0, "tokens_out": 0}
+    if MODEL_PROVIDER != 'openai':
+        raise ValueError('Bản CP3 hỗ trợ MODEL_PROVIDER=openai hoặc fake.')
+    if not MODEL_NAME or not API_KEY:
+        raise ValueError('Thiếu MODEL_NAME hoặc API_KEY trong .env; không in key ra log.')
+    body = {
+        'model': MODEL_NAME,
+        'messages': [{'role': 'system', 'content': system}, {'role': 'user', 'content': user}],
+        'response_format': {'type': 'json_object'},
+        'max_completion_tokens': 512,
+    }
+    request = urllib.request.Request(
+        'https://api.openai.com/v1/chat/completions',
+        data=json.dumps(body, ensure_ascii=False).encode('utf-8'),
+        headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + API_KEY},
+        method='POST')
+    try:
+        with urllib.request.urlopen(request, timeout=45) as response:
+            result = json.load(response)
+    except urllib.error.HTTPError as error:
+        message = {401: 'API key không hợp lệ', 403: 'không có quyền truy cập model',
+                   429: 'hết quota hoặc bị giới hạn lượt'}.get(error.code, 'lỗi nhà cung cấp')
+        raise RuntimeError(f'OpenAI HTTP {error.code}: {message}. Kiểm tra cấu hình/tài khoản.') from None
+    except (urllib.error.URLError, OSError):
+        raise RuntimeError('Không kết nối được OpenAI; kiểm tra mạng.') from None
+    except (ValueError, UnicodeError):
+        raise RuntimeError('OpenAI trả dữ liệu không đúng JSON; chuyển nhân viên.') from None
+    try:
+        choice = result['choices'][0]
+        finish_reason = choice['finish_reason']
+        text = choice['message']['content']
+        usage = result['usage']
+        tokens_in, tokens_out = usage['prompt_tokens'], usage['completion_tokens']
+        model = result['model']
+    except (KeyError, IndexError, TypeError):
+        raise RuntimeError('OpenAI trả thiếu trường bắt buộc; không được ước lượng token.') from None
+    if finish_reason != 'stop':
+        raise RuntimeError('OpenAI chưa trả quyết định hoàn chỉnh; không dùng output bị cắt.')
+    if not isinstance(text, str) or not text.strip():
+        raise RuntimeError('OpenAI trả nội dung rỗng hoặc từ chối; chuyển nhân viên.')
+    if not isinstance(model, str) or not model.strip():
+        raise RuntimeError('OpenAI không trả tên model hợp lệ.')
+    if any(type(value) is not int or value < 0 for value in (tokens_in, tokens_out)):
+        raise ValueError('OpenAI không trả usage token hợp lệ; không được ước lượng token.')
+    return {'text': text, 'model': model,
+            'tokens_in': tokens_in, 'tokens_out': tokens_out}
