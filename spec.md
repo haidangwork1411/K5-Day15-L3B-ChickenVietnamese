@@ -48,7 +48,7 @@ Trong 150 trích đoạn review ShopeeFood VN, **18/150 (12%)** phản ánh khó
     B --> H[Hỏi lại, từ chối hoặc chuyển nhân viên]
     F --> H
   ```
-  Workflow cố định. Ở chế độ thật, OpenAI Chat Completions (gpt-4.1-mini) nhận khiếu nại, đơn và chính sách, chọn propose, ask, handoff hoặc refuse. Chế độ fake dùng để kiểm luồng offline. Hai đơn D100/D101, bốn món và hạn mức 40.000 VND được mô tả trong [Data Card](data/DATA_CARD.md).
+  Workflow cố định. Ở chế độ thật, model Chat Completions (CP3 dùng OpenRouter với `baidu/ernie-5.5-flash-preview:free`; vẫn hỗ trợ OpenAI) nhận khiếu nại, đơn và chính sách, chọn propose, ask, handoff hoặc refuse. Chế độ fake dùng để kiểm luồng offline. Hai đơn D100/D101, bốn món và hạn mức 40.000 VND được mô tả trong [Data Card](data/DATA_CARD.md).
 - **Hình dạng:** [x] workflow cố định · [ ] một agent · [ ] nhiều agent — tra cứu và kiểm tra theo trình tự, dễ review; chưa cần agent tự chọn bước hoặc nhiều vai.
 - **AI dựa vào đâu** — mỗi công cụ (khớp `codebase/tools.py`):
 
@@ -95,7 +95,7 @@ Trong 150 trích đoạn review ShopeeFood VN, **18/150 (12%)** phản ánh khó
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 20 câu (thuong 4 · kho 14 · tu_choi 2), gồm 7/20 câu từ review có nguồn · metric: `eval/metric_spec.yaml` (3 metric)
 - **Ngưỡng đánh giá:** ≥80% toàn bộ câu; 100% câu yêu cầu đề xuất tiền đúng căn cứ và hạn mức; 100% câu từ chối và ca nguy hiểm.
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "≥80% toàn bộ câu qua; 100% câu yêu cầu đề xuất tiền đúng căn cứ và hạn mức; 100% câu từ chối và ca nguy hiểm qua."
-- Kết quả: chưa có lượt đánh giá chính thức và run ID → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Smoke live D01–D03 đạt 3/3 theo [bảng kết quả](docs/connect-model.md#smoke-ernie). Run-1 trên 20 câu chưa chạy, chưa có run ID hoặc điểm theo metric. [Hồ sơ đánh giá](eval/README.md).
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
 - Persona + giá: `cost/personas.yaml` · chưa có lượt mô phỏng
@@ -118,6 +118,7 @@ Trong 150 trích đoạn review ShopeeFood VN, **18/150 (12%)** phản ánh khó
 |---|---|---|
 | 28/11, CP3 | Tích hợp prototype OpenAI, nghiên cứu review và benchmark 20 câu | Commit thành viên 4491b59, f865765, f5b9bc2 |
 | 28/11, trước Run-1 | Ưu tiên ca nguy hiểm, phân luồng giao nhận/liên hệ và chuẩn hóa checksum | D16–D20 và sai khác CRLF/LF trên checkout Linux |
+| 28/11, trước Run-1 | Chốt ERNIE qua OpenRouter cho Run-1 và Run-2 | Smoke live D01–D03 đạt 3/3 với JSON Schema |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

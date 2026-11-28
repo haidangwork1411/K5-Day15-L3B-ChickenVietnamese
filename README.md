@@ -16,16 +16,16 @@ MODEL_PROVIDER=fake python3 run.py
 
 Nhập `D100 thiếu cơm gà`. Giá món trong đơn là 50.000 VND, hạn mức là 40.000 VND. Output hợp lệ thể hiện đề xuất và người quyết định. CLI hiển thị model và token ngay dưới câu trả lời.
 
-**Chạy OpenAI sau khi được phép sử dụng tài khoản và chi phí.** Trong Bash, các lệnh dưới đây giữ key ngoài lịch sử lệnh. Nếu đã cấu hình đủ ba biến trong `.env` cục bộ, có thể chạy thẳng lệnh Python. Biến môi trường hiện có được ưu tiên hơn `.env`.
+**Chạy OpenRouter với model miễn phí cố định cho Run-1 và Run-2.** Trong Bash, các lệnh dưới đây giữ key ngoài lịch sử lệnh. Nếu đã cấu hình đủ ba biến trong `.env` cục bộ, có thể chạy thẳng lệnh Python. Biến môi trường hiện có được ưu tiên hơn `.env`.
 
 ```bash
-export MODEL_PROVIDER=openai MODEL_NAME=gpt-4.1-mini
-read -rsp 'OpenAI API key: ' API_KEY && printf '\n'
+export MODEL_PROVIDER=openrouter MODEL_NAME=baidu/ernie-5.5-flash-preview:free
+read -rsp 'OpenRouter API key: ' API_KEY && printf '\n'
 export API_KEY
 python3 run.py
 ```
 
-Trên Windows, dùng `.env.example` làm mẫu cho `.env` và chạy `py run.py`. [Cấu hình provider và smoke test của TV2](docs/connect-model.md).
+Trên Windows, dùng `.env.example` làm mẫu cho `.env` và chạy `py run.py`. [Cấu hình OpenRouter, OpenAI và lịch sử smoke test](docs/connect-model.md).
 
 ## Lệnh
 
@@ -34,19 +34,19 @@ Trên Windows, dùng `.env.example` làm mẫu cho `.env` và chạy `py run.py`
 | `MODEL_PROVIDER=fake python3 -m unittest discover -s tests` | Kiểm thử offline cho quyết định, provider, tool và guardrail |
 | `python3 evidence/verify.py` | Kiểm checksum snapshot, số đếm, provenance và phép tính impact |
 | `python3 run.py check` | Kiểm benchmark, metric và format thành viên |
-| `python3 run.py eval --try 3` | Với cấu hình thật, kiểm 3 ca đầu có model, token từ API và không có lỗi |
+| `python3 eval/smoke_openrouter.py` | Kiểm D01–D03 với model miễn phí đã chọn, token từ API và đề xuất thực tế. Dừng ở lỗi đầu tiên. |
 | `python3 run.py eval` | Chạy 20 câu bằng phiên bản đã duyệt, lưu CSV và trace được đánh số |
 | `python3 run.py score eval/run-1.csv` | Sau khi chấm, in x/N tổng và theo loại câu. Ba metric được đếm theo tập áp dụng riêng trong hồ sơ đánh giá. |
 
 ## Bản chạy thử — viết ở đâu
 
-`codebase/agent.py` định tuyến tình huống và kiểm quyết định. `codebase/tools.py` đọc đơn và chính sách. `codebase/ai.py` gọi OpenAI Chat Completions hoặc chạy fake, tùy cấu hình. Chi tiết tại [Spec §4](spec.md).
+`codebase/agent.py` định tuyến tình huống và kiểm quyết định. `codebase/tools.py` đọc đơn và chính sách. `codebase/ai.py` gọi Chat Completions qua OpenRouter hoặc OpenAI, hoặc chạy fake, tùy cấu hình. Chi tiết tại [Spec §4](spec.md).
 
 ## Phần nào thật, phần nào giả
 
 | Thành phần | Trạng thái |
 |---|---|
-| Quyết định trung tâm | Đã tích hợp OpenAI. TV2 ghi nhận smoke test trên phiên bản thành viên. Bản tích hợp đã kiểm offline, chưa có Run-1. |
+| Quyết định trung tâm | ERNIE qua OpenRouter đã đạt 3/3 câu smoke D01–D03 với JSON Schema, đúng món, số tiền và bước nhân viên duyệt. Run-1 trên 20 câu chưa chạy. [Kết quả từng câu](docs/connect-model.md#smoke-ernie). |
 | Dataset và giao dịch | Hai đơn, bốn món, một chính sách synthetic. Bản thử chỉ tạo đề xuất hoặc hướng dẫn liên hệ nhân viên. |
 | Evidence | 150 trích đoạn review công khai. 18 đoạn phản ánh khó khăn hỗ trợ/hoàn tiền, 0 đoạn trực tiếp ghi nhận nhận thiếu món. |
 | Benchmark | 20 câu, trong đó 7 câu truy được tới review gốc. Chưa có điểm chính thức hoặc kết quả chấm độc lập. |
@@ -71,6 +71,6 @@ Bằng chứng và giới hạn chọn mẫu nằm trong [tổng hợp nghiên c
 | Chi phí | [Thư mục cost](cost/), thuộc CP4 |
 | Slide và video | Video CP3 chưa quay. Slide demo thuộc CP4. |
 
-**Video CP3 (30 giây).** 0–5 giây mở CLI ở chế độ OpenAI, 5–15 giây nhập `D100 thiếu cơm gà`, 15–25 giây cho thấy output thực tế, 25–30 giây chỉ vào model, token và bước nhân viên duyệt. Giữ key và nội dung `.env` ngoài khung hình.
+**Video CP3 (30 giây).** 0–5 giây mở CLI ở chế độ OpenRouter, 5–15 giây nhập `D100 thiếu cơm gà`, 15–25 giây cho thấy output thực tế, 25–30 giây chỉ vào model, token và bước nhân viên duyệt. Giữ key và nội dung `.env` ngoài khung hình.
 
 **Nộp CP3.** Đội trưởng dùng mã ở dòng 1 của TEAMS, điền link repo/commit, Spec §0–§7, evidence, benchmark, video, run ID, x/N đã chấm và phần còn thiếu. Đặt video YouTube *Không công khai* hoặc Drive *Bất kỳ ai có đường liên kết* với quyền xem. Mở repo, các link bài và phát thử video trong cửa sổ ẩn danh trước khi nộp. [Các trường theo đề BTC](README-de-goc.md#checkpoint).

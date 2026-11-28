@@ -1,48 +1,51 @@
-# Nối OpenAI — phần TV2 / Phan Anh
+# Kết nối model cho Track D1
 
-Bản CP3 triển khai OpenAI Chat Completions bằng thư viện chuẩn Python, không cần
-SDK hoặc cài thêm package. Đơn và chính sách là synthetic; kết quả là bản nháp,
-nhân viên xác minh và quyết định. Không có giao dịch thật.
+Bản CP3 dùng Chat Completions qua OpenRouter hoặc OpenAI bằng thư viện chuẩn Python. Lời gọi thực hiện trong `codebase/ai.py`. Công cụ tra đơn và chính sách chỉ đọc dữ liệu synthetic.
 
 ## 1. Cấu hình tại máy
 
-Nếu chưa có `.env`, chép từ `.env.example`. Nếu đã có thì sửa file đang có để
-giữ cấu hình/key. Điền ba biến:
+Cấu hình CP3 cho Run-1 và Run-2:
 
 ```dotenv
-MODEL_PROVIDER=openai
-MODEL_NAME=gpt-4.1-mini
+MODEL_PROVIDER=openrouter
+MODEL_NAME=baidu/ernie-5.5-flash-preview:free
 API_KEY=
 ```
 
-Điền API_KEY trực tiếp tại máy. Không đưa key vào Git, lệnh có thể bị ghi log,
-ảnh chụp, commit hoặc PR. `.env` đã có trong `.gitignore`.
-Provider/model này đã được người phụ trách cho phép dùng trong phiên làm việc.
-Nếu đổi model hoặc tài khoản thì xác nhận quyền truy cập/chi phí với nhóm trước.
+Điền key OpenRouter trong môi trường local hoặc `.env` được Git bỏ qua. Biến môi trường có sẵn được ưu tiên. Với OpenAI trực tiếp, đặt `MODEL_PROVIDER=openai`, `MODEL_NAME=gpt-4.1-mini` và dùng key OpenAI. Để thử offline, đặt `MODEL_PROVIDER=fake`.
 
-Mặc định chưa cấu hình provider sẽ dùng `fake`, model=fake, token=0;
-chỉ để kiểm luồng offline, không tính là AI thật. Bản này hỗ trợ `openai` và `fake`.
+OpenRouter nhận POST tại `https://openrouter.ai/api/v1/chat/completions`. Ngày 28/11/2026, hai bản Gemma miễn phí 31B và 26B đều chỉ liệt kê Google AI Studio. Trace cuối của cấu hình cũ ghi HTTP 429 ở ba ca, thiếu metadata để xác định nguồn giới hạn. Nhóm giữ ERNIE qua Baidu, endpoint công bố giá token bằng 0 và hỗ trợ structured outputs. [Endpoint](https://openrouter.ai/api/v1/models/baidu/ernie-5.5-flash-preview:free/endpoints).
+
+Mỗi request chỉ định một model miễn phí, với ERNIE dùng `response_format=json_schema` (strict, đúng bốn khóa, enum riêng cho action và issue) và `require_parameters=true`. OpenRouter được phép chuyển upstream của chính model đó nếu có endpoint đủ điều kiện. Trần giá input, output và mỗi request đều bằng 0. Model suy luận dùng chung giới hạn 2.048 token cho reasoning và câu trả lời JSON.
 
 ## 2. Chạy và smoke test
 
-```powershell
-python run.py
-# Thử: D100 thiếu trà
-python run.py eval --try
-python -X utf8 -m unittest discover -s tests -v
+Từ thư mục gốc, sau khi cấu hình key:
+
+```bash
+python3 eval/smoke_openrouter.py
 ```
 
-Smoke test dùng **benchmark CP2 đang có**, không tạo lượt đánh giá chính thức.
-`eval/run-try.csv` và `traces/run-try.jsonl` là file thử tại máy đã được Git bỏ qua;
-không commit, không gọi chúng là run-1.
+D01 là probe đầu tiên. Nếu thành công, script kiểm tiếp D02 và D03, cách nhau 4 giây. Kiểm model, token vào/ra, món, số tiền và bước nhân viên duyệt. Khi lỗi, script dừng ngay và in chẩn đoán giới hạn đã lọc. Trường `raw` chỉ được tóm tắt theo loại lỗi. `retry_after` cho biết thời gian chờ nếu dịch vụ cung cấp; script không tự thử lại. Smoke này không ghi đè trace trước đó.
 
-Đã chạy 3 câu ngày 28/11/2026: API trả
-`gpt-4.1-mini-2025-04-14`, tổng **1408 token vào / 70 token ra**, không lỗi.
-Token đọc trực tiếp từ `usage.prompt_tokens` và `usage.completion_tokens`,
-không ước lượng. Bộ unit test có **25 test** kiểm hợp đồng/guardrail, không gọi mạng.
+<a id="smoke-ernie"></a>
 
-Lượt đánh giá đầy đủ, chấm điểm, benchmark mở rộng và mô phỏng chi phí do người
-phụ trách tương ứng chạy sau khi leader tích hợp. TV2 không tạo/sửa run-1 chính thức.
+### Kết quả smoke live ERNIE · 28/11/2026
+
+Theo kết quả nhóm ghi nhận khi chạy script, cả ba quyết định đều hợp JSON Schema, đúng món, đúng mức đề xuất và giữ quyền duyệt của nhân viên.
+
+| Ca | Món | Đề xuất (VND) | Token vào | Token ra | Smoke |
+|---|---|---:|---:|---:|---|
+| D01 | cơm gà | 40.000 | 576 | 131 | PASS |
+| D02 | trà | 20.000 | 575 | 166 | PASS |
+| D03 | bún | 40.000 | 574 | 187 | PASS |
+| **Tổng** | | | **1.725** | **484** | **3/3** |
+
+Run-1 trên 20 câu chưa chạy. Điểm chính thức sẽ được ghi sau khi chấm CSV của lượt được đánh số.
+
+- Demo: chạy `python3 run.py`, nhập `D100 thiếu cơm gà`.
+- Run-1: sau smoke test thành công, chạy `python3 run.py eval`. Lưu SHA, model ID cấu hình, model API trả về, CSV và trace được đánh số. Dùng cùng provider và model ID cho Run-2.
+- Smoke test lịch sử của TV2 trên OpenAI: 3 câu ngày 28/11/2026, snapshot `gpt-4.1-mini-2025-04-14`, 1.408 token vào và 70 token ra. Theo kết quả smoke D01, Liquid dùng 471/1.344 token và ERNIE dùng 476/656 token. Cả hai bị chặn; ERNIE trả cặp action/issue không hợp lệ trước khi thêm schema. Smoke mới in JSON quyết định đã lọc và lý do từ chối.
 
 ## 3. Contract và schema quyết định
 

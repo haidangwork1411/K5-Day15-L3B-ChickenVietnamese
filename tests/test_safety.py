@@ -203,6 +203,107 @@ class ProviderContractTests(unittest.TestCase):
         self.assertEqual(summary['tokens_in'], 123)
         self.assertEqual(events[0]['kind'], 'model')
 
+    def test_openrouter_sends_one_free_json_model_and_traces_reported_usage(self):
+        model_id = 'liquid/lfm-3-1.7b:free'
+        response = io.BytesIO(json.dumps(self.response).encode())
+        with patch.object(ai, 'MODEL_PROVIDER', 'openrouter'), patch.object(ai, 'MODEL_NAME', model_id), \
+             patch.object(ai.urllib.request, 'urlopen', return_value=response) as send:
+            tracing.begin('openrouter-contract')
+            try:
+                result = ai.call_model('Return JSON', 'Thiếu món')
+            finally:
+                summary, events = tracing.end()
+        send.assert_called_once()
+        request = send.call_args.args[0]
+        body = json.loads(request.data)
+        self.assertEqual(request.full_url, 'https://openrouter.ai/api/v1/chat/completions')
+        self.assertEqual(request.get_method(), 'POST')
+        self.assertEqual(request.get_header('Authorization'), 'Bearer ' + ai.API_KEY)
+        self.assertEqual(body['model'], model_id)
+        self.assertNotIn('models', body)
+        self.assertEqual(body['provider'], {'require_parameters': True, 'allow_fallbacks': True,
+                                            'max_price': {'prompt': 0, 'completion': 0, 'request': 0}})
+        self.assertEqual(body['response_format'], {'type': 'json_object'})
+        self.assertEqual(body['messages'][1]['content'], 'Thiếu món')
+        self.assertEqual(body['max_tokens'], 2048)
+        self.assertEqual(result['model'], self.response['model'])
+        self.assertEqual(events[0]['model'], result['model'])
+        self.assertEqual((summary['tokens_in'], summary['tokens_out']), (123, 17))
+
+    def test_ernie_wire_schema_prompt_and_pair_validation_agree(self):
+        model = 'baidu/ernie-5.5-flash-preview:free'
+        valid = {'action': 'propose', 'issue': 'missing', 'item': 'trà', 'amount': 20000}
+        with patch.object(ai, 'MODEL_PROVIDER', 'openrouter'), patch.object(ai, 'MODEL_NAME', model):
+            for issue in ('missing', 'policy'):
+                decision = dict(valid, issue=issue)
+                choice = {'finish_reason': 'stop', 'message': {'content': json.dumps(decision)}}
+                response = dict(self.response, choices=[choice], model=model)
+                observer = Mock()
+                with patch.object(ai.urllib.request, 'urlopen',
+                                  return_value=io.BytesIO(json.dumps(response).encode())) as send:
+                    output = agent.answer('D100 thiếu trà', on_decision=observer)['output']
+                body = json.loads(send.call_args.args[0].data)
+                fmt = body['response_format']
+                self.assertEqual(fmt['type'], 'json_schema')
+                self.assertIs(fmt['json_schema']['strict'], True)
+                schema = fmt['json_schema']['schema']
+                self.assertIs(schema['additionalProperties'], False)
+                self.assertEqual(set(schema['required']), set(valid))
+                props = schema['properties']
+                self.assertEqual(set(props['action']['enum']), set(agent.ALLOWED_ISSUES))
+                self.assertEqual(set(props['issue']['enum']), set.union(*agent.ALLOWED_ISSUES.values()))
+                self.assertEqual(set(props['amount']['type']), {'integer', 'null'})
+                self.assertEqual(set(props['item']['type']), {'string', 'null'})
+                for action, issues in agent.ALLOWED_ISSUES.items():
+                    for allowed in issues:
+                        self.assertIn(f'action="{action}", issue="{allowed}"', body['messages'][0]['content'])
+                self.assertEqual(observer.call_args.args[0], decision)
+                if issue == 'missing':
+                    self.assertIn('đề xuất tối đa 20000', output)
+                else:
+                    self.assertIn('không kiểm chứng được', output)
+
+    def test_openrouter_errors_do_not_retry_or_expose_upstream_body(self):
+        rate_limit = urllib.error.HTTPError('https://openrouter.ai', 429, 'limited', {}, None)
+        embedded = dict(self.response, error={'code': 503, 'message': 'private upstream detail'})
+        for response, failure, expected in (
+            (None, rate_limit, '429'), (None, TimeoutError(), 'timeout'),
+            (io.BytesIO(json.dumps(embedded).encode()), None, '503'),
+            (io.BytesIO(b'broken'), None, 'JSON'),
+        ):
+            with self.subTest(expected=expected), patch.object(ai, 'MODEL_NAME', 'sample/model:free'), \
+                 patch.object(ai, 'MODEL_PROVIDER', 'openrouter'), \
+                 patch.object(ai.urllib.request, 'urlopen', return_value=response, side_effect=failure) as send:
+                with self.assertRaisesRegex(RuntimeError, expected) as caught:
+                    ai.call_model('Return JSON', 'input')
+                send.assert_called_once()
+                self.assertNotIn('private upstream detail', str(caught.exception))
+
+    def test_router_429_reports_routing_fields_without_raw_content(self):
+        error = {'metadata': {'limit_source': 'upstream', 'provider_name': 'Google AI Studio',
+                              'raw': {'message': 'rate limited upstream; ' + ai.API_KEY},
+                              'retry_after': 10}}
+        body = io.BytesIO(json.dumps({'error': error}).encode())
+        failure = urllib.error.HTTPError('https://openrouter.ai', 429, 'limited',
+                                         {'Retry-After': '45'}, body)
+        with patch.object(ai, 'MODEL_PROVIDER', 'openrouter'), patch.object(ai, 'MODEL_NAME', 'a/b:free'), \
+             patch.object(ai.urllib.request, 'urlopen', side_effect=failure) as send:
+            with self.assertRaises(RuntimeError) as caught:
+                ai.call_model('JSON', 'input')
+        message = str(caught.exception)
+        for token in ('HTTP 429', 'provider_name=Google AI Studio', 'limit_source=upstream',
+                      'retry_after=45s', 'raw=rate_limited_upstream'):
+            self.assertIn(token, message)
+        self.assertNotIn(ai.API_KEY, message)
+        send.assert_called_once()
+        self.assertIn('retry_after=10s', ai._router_error_details(error))
+
+    def test_router_refuses_paid_or_automatic_model_before_network(self):
+        with patch.object(ai, 'MODEL_PROVIDER', 'openrouter'), patch.object(ai.urllib.request, 'urlopen') as send:
+            with self.assertRaisesRegex(ValueError, ':free'):
+                ai.call_model('JSON', 'input')
+            send.assert_not_called()
+
     def test_missing_or_invalid_usage_is_not_estimated(self):
         for usage in ({}, {'prompt_tokens': True, 'completion_tokens': 1}):
             with self.subTest(usage=usage), self.assertRaises((RuntimeError, ValueError)):
