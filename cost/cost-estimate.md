@@ -4,7 +4,7 @@
 > Số **không điền tay**: điền `cost/personas.yaml` → `python run.py simulate` → chép bảng trong `cost/simulate-N-summary.md` vào đây.
 > Lúc build dùng gói miễn phí vẫn tính theo **giá gói trả phí** — đây là chi phí cho lúc đưa vào dùng thật.
 
-**Trạng thái:** đã có cấu hình đầu vào. **Chưa chạy mô phỏng**, nên chưa có số đo token và chi phí.
+**Đã hoàn thành mô phỏng chính thức** simulate-1@20261128-122133 trên SHA 669752b2000cc1bde98672c60b0c78be74050434.
 
 ## 1. Đầu vào
 
@@ -37,26 +37,32 @@ Ba kịch bản chỉ đổi số người dùng và giữ nguyên persona. Bả
 
 **Cấu hình mô phỏng:** 50 phiên · seed 42 · đầu vào lấy từ câu `thuong` và `kho` trong `eval/benchmark.csv`. Với bộ câu hiện tại, cấu hình này sinh 89 lượt hỏi.
 
-**Model đo token:** dự kiến `baidu/ernie-5.5-flash-preview:free` qua OpenRouter, cùng model với Run-1. Chi phí theo hai model Gemini sẽ là token đo trên ERNIE nhân giá Gemini. Bộ tách token khác nhau nên số thật có thể lệch.
+**Model đo token:** `baidu/ernie-5.5-flash-preview:free` qua OpenRouter, cùng model với Run-1. Chi phí theo hai model Gemini sẽ là token đo trên ERNIE nhân giá Gemini. Bộ tách token khác nhau nên số thật có thể lệch.
 
-**Tỷ lệ đạt dùng để tính:** chưa chốt. Run-2 chưa chạy. Run-1 đạt 20/20 nhưng chạy trên code trước thay đổi câu hỏi làm rõ của TV2.
+**Tỷ lệ đạt dùng để tính:** 20/20 (100%), Run-2 `run-2@20261128-120942`, cùng model ERNIE. Đây là tỷ lệ đạt benchmark; tỷ lệ khách thật giải quyết thành công chưa được đo.
 
 ## 2. Kết quả mô phỏng
 
-Lượt mô phỏng: chưa chạy.
+Lượt `simulate-1@20261128-122133`, SHA `669752b2000cc1bde98672c60b0c78be74050434`. 50 phiên, seed 42, 89 lượt hỏi, 0/50 phiên lỗi. Phân bố phiên ít/vừa/nhiều là 19/23/8. Tổng 18.406 token vào, 4.707 token ra, 32 model calls và 69 tool calls. Tổng latency CSV 50,535 giây, trung bình 1,0107 giây/phiên; chưa gồm khoảng nghỉ giữa lượt hỏi.
 
-| Model | Chi phí / phiên | Chi phí / task thành công | / tháng — thấp | / tháng — cơ sở | / tháng — cao | / người / tháng (cơ sở) |
-|---|---|---|---|---|---|---|
-| gemini-3.1-flash-lite | chưa đo | chưa đo | chưa tính | chưa tính | chưa tính | chưa tính |
-| gemini-4-hydrogen | chưa đo | chưa đo | chưa tính | chưa tính | chưa tính | chưa tính |
+| Model (giá) | Chi phí / phiên | Chi phí / task thành công | Chi phí / câu hỏi đạt | Chi phí / tháng — thấp (5 người) | Chi phí / tháng — cơ sở (20 người) | Chi phí / tháng — cao (40 người) | Chi phí / người / tháng (cơ sở) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| gemini-3.1-flash-lite (vào 0.25 · ra 1.5 $/1M) | $0.00023 | $0.00023 | $0.00013 | $0.0027 | $0.0109 | $0.0218 | $0.00055 |
+| gemini-4-hydrogen (vào 1.5 · ra 7.5 $/1M) | $0.0013 | $0.0013 | $0.00071 | $0.0147 | $0.0589 | $0.1179 | $0.0029 |
 
-Chi phí / task thành công = chi phí trung bình mỗi phiên ÷ tỉ lệ đạt — **không coi như đạt 100%**.
+Nguồn số đo và bảng làm tròn: [CSV](simulate-1.csv), [summary](simulate-1-summary.md), [trace](../traces/simulate-1.jsonl). Trace simulation ghi sự kiện model/tool; khung không ghi final cho mỗi lượt. 89 lượt được đối chiếu từ CSV với kế hoạch seed 42, gồm cả nhánh kết thúc trước khi gọi công cụ.
+
+Mỗi phiên có chi phí giả định = (token vào × giá vào + token ra × giá ra) / 1.000.000. Chi phí/phiên là trung bình 50 phiên. Chi phí/task = trung bình này / 1,00. Chi phí/câu hỏi đạt chia thêm 89/50 = 1,78 lượt/phiên.
+
+Chi phí tháng dùng trung bình chi phí phiên riêng từng persona, nhân số người dùng × tỷ trọng persona × số phiên/người/tháng rồi cộng ba nhóm. Vì vậy chi phí tháng có trọng số tần suất sử dụng; không lấy trung bình toàn mẫu nhân thẳng 36 phiên cơ sở. Chi phí/người/tháng bằng chi phí tháng cơ sở / 20. Các số trong bảng giữ cách làm tròn của simulator.
+
+Token thực đo trên ERNIE được áp hai biểu giá Gemini từ bảng BTC. Chưa đo chất lượng hai model Gemini; khác biệt tokenizer và hành vi có thể làm chi phí thật thay đổi. Các giá trị là ước tính triển khai theo biểu giá, chưa phải hóa đơn API thực trả.
 
 ## 3. So với impact
 
 - Impact / người gặp sự cố / tháng (`spec.md` §2): 1,8 lần × 15 phút = 27 phút *(tự ước tính)*. Đây là thời gian phát sinh giả định, **chưa phải thời gian tiết kiệm được**.
-- Chi phí / người / tháng: chưa tính.
-- **Kết luận đáng làm không:** chưa kết luận.
+- Chi phí token/người/tháng cơ sở là $0.00055 với Flash-Lite và $0.0029 với Hydrogen theo biểu giá giả định.
+- **Đề xuất ITERATE.** Chi phí token ước tính thấp, nhưng 27 phút/người là tổn thất giả định, chưa đo phần tiết kiệm. Cần kiểm chứng lợi ích, tỷ lệ hoàn tất và thời gian nhân viên duyệt trước quyết định triển khai.
 
 ## 4. Giới hạn
 

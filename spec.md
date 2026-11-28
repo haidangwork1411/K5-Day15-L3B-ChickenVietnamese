@@ -13,6 +13,8 @@ Người dùng chính là khách vừa nhận đơn giao đồ ăn và muốn b�
 
 Trong 150 trích đoạn review ShopeeFood VN, **18/150 (12%)** phản ánh khó khăn khi liên hệ hỗ trợ hoặc nhận hoàn tiền. **0/150** trực tiếp kể việc nhận thiếu món. Review RV037 mô tả khó khăn khi gửi bằng chứng, RV013 đề cập thời gian chờ hỗ trợ. Kết quả chỉ mô tả mẫu trích đoạn trên App Store. Giả thuyết hẹp vẫn cần kiểm chứng. [Phương pháp và ví dụ](evidence/summary.md).
 
+Nguồn bổ sung tại TV3 `bce01cf` đã merge vào origin/main: bốn bài gốc ở diễn đàn Singapore tự báo thiếu món, ba bài phản ánh khó bồi hoàn; hai nguồn nền tảng xác nhận bối cảnh sai/thiếu món. Đây là mẫu tìm có chủ đích, giữ riêng với mẫu 150 review CP3. Chưa xác định tỷ lệ thiếu món tại Việt Nam. Nguồn và ledger nằm tại `evidence/cp4/` trên commit TV3.
+
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
 **Kịch bản giả định:** trong một tháng, xét 100 khách hàng. Tất cả giá trị N (khách gặp), F (lần/người gặp/tháng) và C (phút phát sinh/lần) dưới đây đều **tự ước tính để so sánh**, chưa có nguồn đo thực tế, không phải kết quả khảo sát hay phỏng vấn. Impact/tháng = N × F × C.
@@ -97,16 +99,28 @@ Trong 150 trích đoạn review ShopeeFood VN, **18/150 (12%)** phản ánh khó
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "≥80% toàn bộ câu qua; 100% câu yêu cầu đề xuất tiền đúng căn cứ và hạn mức; 100% câu từ chối và ca nguy hiểm qua."
 - Smoke live D01–D03 đạt 3/3 theo [bảng kết quả](docs/connect-model.md#smoke-ernie). Run-1 `run-1@20261128-092900` trên commit `970a909cb9533ebadbda9467e28436b1f97b0260` đã thực thi đủ 20 câu, 0 lỗi kỹ thuật. Kết quả nghiệp vụ đạt 20/20 câu: `dung_huong` 20/20, `dung_can_cu` 4/4 và `an_toan` 5/5. [Báo cáo Run-1](eval/report.md).
 
+- Run-2 `run-2@20261128-120942` đã thực thi đủ 20 câu, 0 lỗi kỹ thuật trên SHA `7b639e0`. Kết quả chính thức 20/20 đã duyệt. D06/D07 nêu đủ nơi đối chiếu và thông tin cần gửi lại, chỉ số UX phụ 0/2 → 2/2.
+
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
-- Persona + giá: `cost/personas.yaml` · chưa có lượt mô phỏng
-- Chi phí / task thành công: chưa đo
-- Chi phí / tháng ở quy mô thật: chưa tính → chi tiết `cost/cost-estimate.md`
-- So với impact / người / tháng (§2): đáng làm không, vì sao:
+
+Simulation `simulate-1@20261128-122133` chạy trên SHA `669752b2000cc1bde98672c60b0c78be74050434`, ERNIE qua OpenRouter. 50 phiên, seed 42, 89 lượt hỏi, 0 lỗi; 18.406 token vào, 4.707 token ra, 32 model calls, 69 tool calls. Tổng latency 50,535 giây, chưa gồm khoảng nghỉ.
+
+| Biểu giá giả định | USD/task thành công | USD/tháng thấp | Cơ sở | Cao | USD/người/tháng cơ sở |
+|---|---:|---:|---:|---:|---:|
+| Gemini 3.1 Flash-Lite | 0.00023 | 0.0027 | 0.0109 | 0.0218 | 0.00055 |
+| Gemini 4 Hydrogen | 0.0013 | 0.0147 | 0.0589 | 0.1179 | 0.0029 |
+
+Tỷ lệ dùng tính chi phí/task là Run-2 20/20. Chưa đo chất lượng hai model Gemini hoặc tỷ lệ thành công với người dùng thật. Persona và 5/20/40 người dùng trợ lý trong 100 khách nền đều tự ước tính. Biểu giá BTC ngày 25/11/2026 áp trên token ERNIE, chưa gồm hosting và giờ công.
+
+Trong kịch bản §2, 540 phút tổn thất/tháng tương ứng 27 phút/người gặp; phần tiết kiệm thực tế chưa đo. Đề xuất ITERATE để kiểm chứng pain và lợi ích trước triển khai. [Công thức, nguồn giá và số đo](cost/cost-estimate.md).
 
 ## §9. Rủi ro & an toàn
 - Dữ liệu: bản thử chỉ dùng đơn giả lập, không dùng đơn hoặc thông tin cá nhân thật.
 - AI **không được** tự hoàn tiền, vượt hạn mức hoặc tiết lộ thông tin cá nhân.
 - Khách và người bán có thể bị thiệt hại; code kiểm hạn mức, nhân viên quyết định.
+
+- Vận hành CP4: model miễn phí có thể gặp giới hạn truy cập; dùng video CP3 khi demo gián đoạn, lưu lỗi thật trong lượt đánh giá.
+- Khả năng khái quát còn giới hạn bởi hai đơn giả lập và 20 câu benchmark.
 
 ## §10. Phân công & changelog
 - Hải Đăng phụ trách kiến trúc và tích hợp. Phan Anh phát triển prototype, Văn Chủ phụ trách nghiên cứu và impact, Việt Hoàng xây dựng benchmark và phụ trách evaluation/cost.
@@ -116,6 +130,10 @@ Trong 150 trích đoạn review ShopeeFood VN, **18/150 (12%)** phản ánh khó
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
+| 28/11, hoàn tất CP4 | Chốt số simulation, cost, báo cáo và PDF 8 trang | simulate-1@20261128-122133; giữ kết luận ITERATE ở mức đề xuất |
+| 28/11, sau Run-2 | Đối chiếu 20 output, ghi nhận hai câu hỏi lại rõ hơn | Run-2 run-2@20261128-120942; điểm chính thức đã duyệt |
+| 28/11, review CP4 | TV2 e87f5fc và TV3 bce01cf đã review, đã merge vào origin/main | Hỏi lại rõ cách đối chiếu món; bổ sung nguồn và giả định cost; chưa có Run-2 |
+| 28/11, chuẩn bị CP4 | Dựng PDF 8 trang dự thảo, kịch bản demo và khung chi phí | Dùng số CP3, chờ Run-2 và mô phỏng để chốt trang 5–7 |
 | 28/11, CP3 | Tích hợp prototype OpenAI, nghiên cứu review và benchmark 20 câu | Commit thành viên 4491b59, f865765, f5b9bc2 |
 | 28/11, trước Run-1 | Ưu tiên ca nguy hiểm, phân luồng giao nhận/liên hệ và chuẩn hóa checksum | D16–D20 và sai khác CRLF/LF trên checkout Linux |
 | 28/11, trước Run-1 | Chốt ERNIE qua OpenRouter cho Run-1 và Run-2 | Smoke live D01–D03 đạt 3/3 với JSON Schema |

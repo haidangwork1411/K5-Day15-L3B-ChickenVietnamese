@@ -68,9 +68,13 @@ Bằng chứng và giới hạn chọn mẫu nằm trong [tổng hợp nghiên c
 | Thiết kế | [Spec §4](spec.md) |
 | Bản chạy thử | [Workflow](codebase/agent.py), lệnh demo ở trên |
 | Bộ câu thử và metric | [Hồ sơ đánh giá](eval/README.md) |
-| Chi phí | [Thư mục cost](cost/), thuộc CP4 |
-| Slide và video | [Xem video demo AI thật](https://drive.google.com/file/d/1y7jnc8wYgmPQqtxI2iZpvszd4KbUMLkN/view?usp=sharing) (MP4, 29,89 giây). Nhóm đã kiểm tra quyền xem bằng cửa sổ ẩn danh. Slide demo thuộc CP4. |
+| Chi phí | [Thư mục cost](cost/), đã có mô phỏng 50 phiên |
+| Slide và video | [Xem video demo AI thật](https://drive.google.com/file/d/1y7jnc8wYgmPQqtxI2iZpvszd4KbUMLkN/view?usp=sharing) (MP4, 29,89 giây). Nhóm đã kiểm tra quyền xem bằng cửa sổ ẩn danh. [Slide CP4](demo-slides.pdf). |
 
 Trong video, khách báo `D100 thiếu cơm gà`. Bản thử hiển thị giá món 50.000 VND, đề xuất tối đa 40.000 VND và nêu rõ nhân viên xác minh, quyết định. CLI hiển thị model ERNIE và số token thực tế.
 
 **Giới hạn hồ sơ CP3.** Impact dựa trên giả định cho 100 khách. Hồ sơ chưa ghi nhận câu hỏi nghiên cứu riêng của từng thành viên, hoạt động theo cặp qua các chặng, buổi rà soát nhóm 15 phút hoặc số dòng review đã được kiểm nhãn thủ công. [Nguồn và phạm vi kiểm chứng](evidence/summary.md).
+
+**Hồ sơ CP4.** [PDF 8 trang](demo-slides.pdf), [kịch bản demo và phân vai](slides/outline.md), [báo cáo đánh giá](eval/report.md) và [chi phí](cost/cost-estimate.md).
+
+Run-1 và Run-2 đều đạt 20/20. Hướng dẫn D06/D07 đạt đủ hai tiêu chí UX 0/2 → 2/2; 18 output giữ nguyên. Simulation 50 phiên, seed 42, 89 lượt hỏi, 0 lỗi. Chi phí/task giả định $0.00023 hoặc $0.0013 theo hai tầng giá Gemini áp trên token ERNIE. Đề xuất ITERATE vì lợi ích với người dùng và chi phí vận hành đầy đủ chưa đo.

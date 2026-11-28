@@ -5,7 +5,7 @@
 | Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | So với chuẩn "đạt" |
 |---|---|---|---|---|---|---|---|
 | 1 | `run-1@20261128-092900` | 20/20 | 100% | 4/4 | 14/14 | 2/2 | Đạt cả ba ngưỡng |
-| 2 | Chưa chạy | — | — | — | — | — | — |
+| 2 | `run-2@20261128-120942` | 20/20 | 100% | 4/4 | 14/14 | 2/2 | Đạt cả ba ngưỡng |
 
 Run-1 dùng code và benchmark tại commit `970a909cb9533ebadbda9467e28436b1f97b0260`, nhánh `cp3/tv1-integration`. [CSV](run-1.csv) và [trace](../traces/run-1.jsonl) khớp đủ D01–D20, gồm 4 câu thường, 14 câu khó và 2 câu từ chối. Cả 20 câu đều có output cuối. Smoke live D01–D03 đã đạt 3/3 trong một lần thử riêng. [Kết quả smoke](../docs/connect-model.md#smoke-ernie).
 
@@ -35,8 +35,33 @@ Cột `error` trống ở cả 20 dòng. Hai câu D06 và D07 nhận cùng cách
 
 ## 3. Một lần cải tiến
 
-Chưa thực hiện. Chưa có lượt 2 để so sánh.
+Run-2 `run-2@20261128-120942` dùng SHA `7b639e000a1f8247bcf4b191ba1a0ed0f50c4e57`, cùng ERNIE qua OpenRouter. Đội trưởng đã duyệt 20/20. Ba metric của cả hai lượt đều đạt đúng hướng 20/20, đúng căn cứ 4/4 và an toàn 5/5.
+
+Cải tiến TV2 `e87f5fc` hướng dẫn mở chi tiết đơn và gửi đúng tên một món đã đặt nhưng chưa nhận khi model chọn ask/unclear. D06/D07 cải thiện nội dung hướng dẫn; 18 output còn lại giữ nguyên; 0 regression nghiệp vụ quan sát được theo tiêu chí CP2.
+
+| Phép đo UX phụ trên D06/D07 | Run-1 | Run-2 |
+|---|---:|---:|
+| Nêu nơi đối chiếu tên món | 0/2 | 2/2 |
+| Nêu thông tin cần gửi lại | 2/2 | 2/2 |
+| Đạt đồng thời hai tiêu chí | 0/2 | 2/2 |
+
+Đây là phép đo nội dung hướng dẫn trên hai câu; hiệu quả với người dùng và thời gian tiết kiệm chưa được đo.
+
+| Số đo | Run-1 | Run-2 |
+|---|---:|---:|
+| Token vào | 3.451 | 3.451 |
+| Token ra | 1.009 | 1.207 |
+| Model calls | 6 | 6 |
+| Tool calls | 13 | 13 |
+| Tổng latency CSV (giây) | 9,897 | 11,900 |
+| Trung bình latency/câu (giây) | 0,49485 | 0,595 |
+| Lỗi kỹ thuật | 0 | 0 |
+
+Token ra tăng 198 (19,62%), tổng latency tăng 2,003 giây (20,24%). Latency CSV đo xử lý từng câu, chưa gồm khoảng nghỉ giữa các câu. Sáu JSON quyết định model trả về giống nhau giữa hai lượt, prompt và token vào giữ nguyên. Backend tạo hướng dẫn mới sau lời gọi model. Trace không lưu chi tiết reasoning usage nên chưa xác định nguyên nhân token ra tăng. Một lượt mỗi phiên bản chưa đủ để kết luận hiệu năng ổn định.
+
 
 ## 4. Còn lại
 
-Hai người chấm đồng thuận ở 5/5 câu đã chọn. Kết quả Run-1 phản ánh phạm vi của 20 câu và hai đơn hàng giả lập. [Điểm từng người và nhận xét](README.md#3-metric-và-cách-chấm).
+Hai người chấm đồng thuận ở 5/5 câu đã chọn của Run-1. Kết quả Run-1 phản ánh phạm vi của 20 câu và hai đơn hàng giả lập. [Điểm từng người và nhận xét](README.md#3-metric-và-cách-chấm).
+
+Run-1 có 0 câu trượt; hồ sơ chưa có ba lỗi Run-1 theo mục R5 của rubric.
