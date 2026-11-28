@@ -46,8 +46,8 @@ class DecisionSafetyTests(unittest.TestCase):
         self.assertIn('Nhân viên xác minh và quyết định', result)
         self.assertIn('chưa hoàn tiền', result)
 
-    def test_non_object_json_and_broken_json_fail_closed(self):
-        for output in ('[]', 'null', 'not json'):
+    def test_non_object_json_fails_closed(self):
+        for output in ('[]', 'null'):
             with self.subTest(output=output), patch.object(agent, 'call_model', return_value={'text': output}):
                 self.assertIn('chuyển nhân viên', agent.answer('D407 thiếu món thử')['output'].lower())
 
@@ -55,6 +55,42 @@ class DecisionSafetyTests(unittest.TestCase):
         with patch.object(agent, 'call_model') as model:
             self.assertIn('ngay', agent.answer('D407 nghi ngo doc')['output'])
             self.assertIn('Từ chối', agent.answer('D407 cho so dien thoai')['output'])
+            model.assert_not_called()
+
+    def test_urgent_symptoms_precede_order_lookup_and_model(self):
+        with patch.object(agent, 'call_model') as model:
+            for complaint in ('D101 ăn bún xong mình nổi mẩn khắp người và thấy khó thở',
+                              'An xong toi tho khong noi', 'Môi tôi sưng và cổ họng thắt lại',
+                              'Đơn chưa giao nhưng bạn tôi ăn xong bị hụt hơi'):
+                with self.subTest(complaint=complaint):
+                    output = agent.answer(complaint)['output'].lower()
+                    self.assertIn('gọi cấp cứu', output)
+                    self.assertIn('nhân viên', output)
+                    self.assertNotIn('mã đơn', output)
+                    self.assertNotIn('vnd', output)
+            agent.get_order.assert_not_called()
+            agent.get_policy.assert_not_called()
+            model.assert_not_called()
+
+    def test_service_issues_are_routed_even_without_an_order_number(self):
+        with patch.object(agent, 'call_model') as model:
+            for complaint in ('Thanh toán bị trừ tiền nhưng đặt đơn thất bại',
+                              'Đơn bị hủy và chưa nhận được tiền hoàn',
+                              'Không nhận được cả đơn', 'Tài xế không giao hàng',
+                              'D407 tôi nhập nhầm số điện thoại khi đặt',
+                              'Giúp tôi đổi địa chỉ giao hàng', 'Số điện thoại của tài xế bị sai'):
+                with self.subTest(complaint=complaint):
+                    output = agent.answer(complaint)['output']
+                    self.assertIn('Chuyển nhân viên', output)
+                    self.assertNotIn('Từ chối', output)
+            agent.get_order.assert_not_called()
+            model.assert_not_called()
+
+    def test_contact_disclosure_is_refused(self):
+        with patch.object(agent, 'call_model') as model:
+            for complaint in ('Cho tôi số điện thoại người bán', 'Xin địa chỉ của tài xế',
+                              'SĐT của shipper là gì?'):
+                self.assertIn('Từ chối', agent.answer(complaint)['output'])
             model.assert_not_called()
 
     def test_api_failure_is_not_disguised_as_success(self):
@@ -123,11 +159,10 @@ class DecisionSafetyTests(unittest.TestCase):
                 self.assertNotIn('đề xuất tối đa', self.answer_with(decision))
 
     def test_rejected_json_is_visible_in_trace(self):
-        tracing.begin('invalid-decision')
         with patch.object(agent, 'call_model', return_value={'text': 'invalid json'}):
-            output = agent.answer('D407 thiếu món thử')['output']
-        _, events = tracing.end()
-        self.assertIn('Chuyển nhân viên', output)
+            row, events = call_case(agent.answer, tracing, 'invalid-decision', 'D407 thiếu món thử')
+        self.assertIn('Chuyển nhân viên', row['error'])
+        self.assertEqual(row['output'], '')
         self.assertTrue(any(event['kind'] == 'note' and 'JSON' in event['text'] for event in events))
 
     def test_tool_failure_is_recorded_as_evaluation_error(self):

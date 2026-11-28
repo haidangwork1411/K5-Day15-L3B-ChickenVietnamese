@@ -41,6 +41,28 @@ _REQUESTED_MONEY = re.compile(
 )
 
 
+# Route time-sensitive and out-of-scope reports before requiring order details.
+_BREATHING_RISK = re.compile(
+    r"\b(kho tho|hut hoi|nghet tho|tho (khong (duoc|noi|ra hoi)|doc)|khong tho (duoc|noi)|"
+    r"(sung|phu) (moi|luoi|hong)|(?:moi|luoi|hong) (?:bi )?sung|"
+    r"(?:that|nghen) (?:co )?hong|(?:co )?hong that lai|ngat xiu)\b"
+)
+_FOOD_RISK = re.compile(r"\b(di vat|ngo doc|di ung|noi (man|me day)|phat ban)\b")
+_CONTACT = r"(?:so dien thoai|sdt|dia chi)"
+_DISCLOSURE = re.compile(
+    rf"\b(?:cho(?: (?:toi|minh|em|xin|biet))*|xin|tiet lo|cung cap|gui(?: cho (?:toi|minh|em))?|lay) {_CONTACT}\b"
+    rf"|\b{_CONTACT} (?:cua )?(?:nguoi ban|tai xe|shipper|chu quan|khach hang) "
+    r"(?:la (?:gi|bao nhieu)|o dau|duoc khong)\b"
+)
+_ORDER_FAILURE = re.compile(
+    r"\b(?:(?:khong|chua) (?:duoc )?giao (?:hang|(?:ca )?don)|"
+    r"(?:khong|chua) nhan (?:duoc )?(?:hang|ca don)|"
+    r"(?:huy don|don (?:hang )?(?:bi |da )?huy)|"
+    r"don\b.{0,25}\b(?:that bai|khong thanh cong)|"
+    r"(?:loi|that bai) thanh toan|thanh toan (?:bi loi|that bai))\b"
+)
+
+
 def _normalized(text):
     text = unicodedata.normalize("NFKD", text.casefold()).replace("đ", "d")
     return " ".join("".join(c for c in text if not unicodedata.combining(c)).split())
@@ -82,14 +104,23 @@ def answer(text: str) -> dict:
     if not isinstance(text, str) or not text.strip():
         return {"output": "Vui lòng cung cấp mã đơn và tên món thiếu bằng văn bản."}
     s = _normalized(text)
-    if any(word in s for word in ("di vat", "ngo doc", "di ung")):
-        return _handoff("có nguy cơ an toàn, cần hỗ trợ ngay")
-    if any(word in s for word in (
-        "so dien thoai", "dia chi", "bo qua chinh sach", "bo qua han muc",
+    if _BREATHING_RISK.search(s):
+        return {"output": "Hãy gọi cấp cứu ngay hoặc nhờ người bên cạnh gọi giúp. "
+                          "Chuyển nhân viên xử lý khẩn cấp; đừng chờ phản hồi của cửa hàng."}
+    if _FOOD_RISK.search(s):
+        return {"output": "Ngừng dùng món ăn và liên hệ nhân viên ngay. Nếu có triệu chứng, "
+                          "hãy liên hệ cơ sở y tế; nếu khó thở hoặc sưng họng, hãy gọi cấp cứu ngay. "
+                          "Chuyển nhân viên xử lý sự cố an toàn thực phẩm."}
+    if _DISCLOSURE.search(s) or any(word in s for word in (
+        "bo qua chinh sach", "bo qua han muc",
         "ignore previous", "ignore all", "system prompt", "api key",
         "tu dong hoan tien", "dong vai admin",
     )):
         return {"output": "Từ chối yêu cầu vượt quyền hoặc tiết lộ thông tin cá nhân; chuyển nhân viên xử lý."}
+    if re.search(rf"\b{_CONTACT}\b", s):
+        return _handoff("cần hỗ trợ về thông tin liên hệ hoặc giao nhận")
+    if _ORDER_FAILURE.search(re.sub(r"\b(?:ko|k)\b", "khong", s)):
+        return _handoff("cần kiểm tra tình trạng giao hàng, đơn hoặc thanh toán")
     if any(word in s for word in (
         "da duoc hoan", "da hoan tien", "da nhan tien hoan",
         "da giao bo sung", "da nhan bu", "khong thieu mon nao",
@@ -121,7 +152,8 @@ def answer(text: str) -> dict:
     try:
         decision = json.loads(reply["text"])
     except (json.JSONDecodeError, TypeError, KeyError):
-        return _invalid_decision("JSON hỏng hoặc thiếu text")
+        note("guardrail: JSON hỏng hoặc thiếu text")
+        raise RuntimeError("Lỗi JSON từ model. Chuyển nhân viên xác minh; chưa thực hiện giao dịch.") from None
     if not isinstance(decision, dict) or set(decision) != {"action", "item", "amount", "issue"}:
         return _invalid_decision("schema quyết định không hợp lệ")
     action, issue = decision["action"], decision["issue"]
