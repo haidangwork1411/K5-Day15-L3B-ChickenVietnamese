@@ -1,0 +1,32 @@
+{
+  "N": 150,
+  "unit": "public review excerpts, not users or orders",
+  "counts": {
+    "missing_food": {
+      "x": 0,
+      "N": 150,
+      "percent": 0.0
+    },
+    "complaint_difficulty": {
+      "x": 18,
+      "N": 150,
+      "percent": 12.0
+    },
+    "both": {
+      "x": 0,
+      "N": 150,
+      "percent": 0.0
+    }
+  },
+  "star_distribution": {
+    "1": 96,
+    "2": 3,
+    "3": 4,
+    "4": 1,
+    "5": 46
+  },
+  "review_date_min": "2026-10-28T06:06:32-07:00",
+  "review_date_max": "2026-11-26T03:27:46-07:00",
+  "coded_by": "AI-assisted excerpt coding; human review pending",
+  "snapshot_sha256": "d5803b98244f56c96e1b8d357899615fcaca935df42cc1b56058d52f583f8f24"
+}

@@ -1,0 +1,41 @@
+{
+  "collected_at": "2026-11-28T02:50:42.245159+07:00",
+  "app_id": "1137866760",
+  "storefront": "vn",
+  "sort": "mostrecent",
+  "planned_pages": 4,
+  "pages": [
+    {
+      "page": 1,
+      "url": "https://itunes.apple.com/vn/rss/customerreviews/page=1/id=1137866760/sortby=mostrecent/json",
+      "returned_reviews": 50,
+      "response_sha256": "bf5d8d2aa282db5a01b19ca469c8af0483ec7d316ff6002ed55a4b9a3b155607",
+      "fetched_at": "2026-11-28T02:50:42.410745+07:00"
+    },
+    {
+      "page": 2,
+      "url": "https://itunes.apple.com/vn/rss/customerreviews/page=2/id=1137866760/sortby=mostrecent/json",
+      "returned_reviews": 50,
+      "response_sha256": "558d5718e69fde786cc9505366f7ca89461bdee0b46811eec0f0121121a9287c",
+      "fetched_at": "2026-11-28T02:50:43.343159+07:00"
+    },
+    {
+      "page": 3,
+      "url": "https://itunes.apple.com/vn/rss/customerreviews/page=3/id=1137866760/sortby=mostrecent/json",
+      "returned_reviews": 0,
+      "response_sha256": "4638083d10159e0554b487ae44cb3c7a19c4095d19b52485918102145e185dad",
+      "fetched_at": "2026-11-28T02:50:44.205774+07:00"
+    },
+    {
+      "page": 4,
+      "url": "https://itunes.apple.com/vn/rss/customerreviews/page=4/id=1137866760/sortby=mostrecent/json",
+      "returned_reviews": 50,
+      "response_sha256": "9bec4504e3d2623cee4604e915602551b7a7686e51c5e330692a928614f6487e",
+      "fetched_at": "2026-11-28T02:50:45.065687+07:00"
+    }
+  ],
+  "eligible_unique_reviews": 150,
+  "duplicates_excluded": 0,
+  "blank_excluded": 0,
+  "privacy": "author/title/raw payload deliberately not stored; excerpts <=25 source words and one sentence"
+}

@@ -1,0 +1,11 @@
+Kiểm eval/benchmark.csv
+  Đủ 6 cột: id,input,expected,pass_criterion,type,source
+  Số câu thử: 12  ·  thuong 4  ·  kho 6  ·  tu_choi 2
+  Nguồn: nguoi_dung 0  ·  data_that 0  ·  tu_viet 12  ·  sinh_seed 0  ·  từ người dùng / data thật: 0/12
+  eval/metric_spec.yaml: 3 metric đã điền đủ (cần ≥3)
+Kiểm TEAMS.md
+  4 thành viên
+Cần xem lại:
+  ⚠️ CP3 cần 20–30 câu (đang có 12).
+  ⚠️ Cần ≥1/3 câu từ lời người dùng hoặc data thật (nguoi_dung / data_that): đang 0/12.
+(Lệnh này chỉ kiểm, không sửa file.)

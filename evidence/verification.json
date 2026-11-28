@@ -1,0 +1,29 @@
+{
+  "verified": true,
+  "reviews": 150,
+  "counts": {
+    "missing_food": {
+      "x": 0,
+      "N": 150,
+      "percent": 0.0
+    },
+    "complaint_difficulty": {
+      "x": 18,
+      "N": 150,
+      "percent": 12.0
+    },
+    "both": {
+      "x": 0,
+      "N": 150,
+      "percent": 0.0
+    }
+  },
+  "case_sources": 10,
+  "protected_baseline_files": 12,
+  "counts_reproduced": true,
+  "impact_arithmetic_verified": true,
+  "staged_files": 0,
+  "ownership_scope": "evidence/ only",
+  "git_diff_check": "passed",
+  "human_review": "pending"
+}

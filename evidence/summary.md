@@ -1,57 +1,84 @@
-# Tổng hợp bằng chứng pain
+# Tổng hợp Research, Evidence & Impact — TV3 / CP3
 
-> Điền ở guide bước 1.2, xong trước **CP3 10:00 Thứ Bảy 28/11**. Chấm ở rubric R1.
-> Ba nguồn ngang nhau — tối thiểu **≥1 nguồn đạt ngưỡng**. Mạnh nhất: đào data ra insight → hỏi người dùng để kiểm lại (hoặc ngược lại).
+Ngày cập nhật: 28/11/2026. Baseline chính thức 58632f5f794120b4efbabaef75f480b3171edf7d;
+nhánh local cp3/tv3-evidence. Chỉ sửa evidence/. Chưa stage, commit, push hay tạo PR.
 
-## Nguồn thứ cấp đã tham khảo — chưa đạt ngưỡng R1
+## 1. Số chính và kết luận
 
-- E01 [CafeF, 05/03/2026](https://cafef.vn/tu-nay-dat-mon-tren-app-nho-lam-viec-nay-de-duoc-den-tien-khi-do-an-bi-do-hoac-thieu-mon-188260305185811121.chn), xem 27/11/2026: bài báo mô tả một trường hợp thiếu món gặp khó khi khiếu nại, và khó xác minh khi thiếu bằng chứng. Đây là lời tác giả, không phải phỏng vấn hay lời trực tiếp của người dùng.
-- E02 [Trung tâm trợ giúp Shopee](https://help.shopee.vn/portal/4/article/79520): không truy cập được ngày 27/11/2026; nội dung chưa xác minh.
-- E03 [Điều khoản thương nhân Grab](https://www.grab.com/vn/terms-policies/merchant-terms-and-conditions/), xem 27/11/2026: truy cập được điều khoản thương nhân; chưa xác minh được nội dung cụ thể về thiếu món. Không dùng làm bằng chứng về quyền hoàn trả.
-- E04 [24h, 18/06/2020](https://www.24h.com.vn/cong-nghe-thong-tin/cach-lay-lai-tien-khi-shipper-giao-thieu-do-an-dat-qua-grabfood-c55a1158472.html), xem 27/11/2026: mô tả quy trình báo thiếu/sai món trong app tại thời điểm bài viết. Quy trình hiện nay chưa xác minh.
+Nguồn chính AP01 là **150 review App Store ShopeeFood VN**, mọi mức sao, từ các
+trang được chọn trước; một trang rỗng, không có mẫu mới nhất liên tiếp hoàn chỉnh.
+**18/150 (12.00%)** excerpt phản ánh khó/bất mãn hỗ trợ hoặc hoàn tiền;
+**0/150 (0.00%)** excerpt nói trực tiếp nhận thiếu món; giao hai nhãn **0/150**.
+Không suy tỷ lệ người dùng, số đơn hoặc phần trăm khách thiếu món từ các số này.
 
-**Bằng chứng trực tiếp:** chưa có review hay phỏng vấn đã thu và đếm.
+**Kết luận: cần kiểm thêm/đổi giả thuyết**, không tuyên bố pain thiếu món đã được
+xác nhận. Dấu hiệu về hỗ trợ nói chung có thật trong nguồn công khai, nhưng không
+đủ để nhận định nguyên nhân là khách không biết thông tin khiếu nại cần cung cấp.
+0/150 không chứng minh không ai nhận thiếu món. [Hypothesis](hypothesis.md).
 
-## 1. Nguồn đã dùng
+## 2. Nguồn, phương pháp và mức hoàn thành
 
-| Nguồn | Đạt ngưỡng? | File |
+| Hạng mục | Đã có | Giới hạn / chưa có |
 |---|---|---|
-| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` |
-| Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | ☐ | `evidence/interviews/P1.md`… |
-| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ | `evidence/survey/` |
+| Đào review có cách chọn, mẫu số, số đếm và script | collection-plan, coding-protocol, CSV 150 dòng, count.py, counts.json | AI gắn nhãn excerpt; chưa có người thứ hai kiểm, gap trang 3 |
+| ≥5 ví dụ có nguồn, bỏ tác giả | RV013/RV037/RV096/RV107/RV138/RV146/RV150 và các excerpt trong CSV | Tự báo cáo, chưa xác minh giao dịch hoặc vai người viết |
+| Nguồn thứ hai kiểm bối cảnh | E01 báo chí; P01/E03 tài liệu chính thức đã đọc | Không độc lập xác nhận x/N, không thay thế phỏng vấn người đúng vai |
+| Phỏng vấn ≥3 / khảo sát ≥20 | Không thực hiện, không bắt buộc nếu mining được chấp nhận | Không tạo file P1/P2/P3 hay response giả |
+| Impact có nguồn từng thừa số | Truy vết mọi số CP2 về spec §2, có công thức/độ nhạy | N/F/C vẫn tự ước tính, không thể báo impact thực hoặc đủ trọn R2 |
+| Bàn giao nguồn cho TV4 | 10 tình huống riêng trong source-cases.csv, có source/date/ref/scope/limits | Không phải 10 benchmark case đã duyệt; một số là boundary/nguồn chính sách |
+| Cá nhân, làm theo cặp, review người thật | Chưa ghi nhận ngoài lời yêu cầu giao việc | Người học phải tự kiểm và nhóm thực hiện thật, AI không thay hoạt động này |
 
-## 2. Số chính
+[data-mining.md](data-mining.md) có phương pháp, bảng số và ví dụ.
+[sources.md](sources.md) phân biệt review/báo chí/chính sách/nguồn chưa truy cập.
+[impact.md](impact.md) tách số quan sát và giả định.
 
-- Đào data: __/__ (__%) …
-- Phỏng vấn: __/3 người gặp *(n nhỏ không ghi %)* · số lần / tháng: P1 __, P2 __, P3 __ · mỗi lần mất __–__ phút
-- Khảo sát: n = __ · __/__ (__%) …
+## 3. Provenance cho TV4
 
-Phỏng vấn nhiều vai thì đếm theo từng vai, không cộng chung.
+[source-cases.csv](source-cases.csv): SC01–SC10 có Evidence ID, loại nguồn,
+URL/ref, ngày, ngữ cảnh, diễn giải ẩn danh, mức xác minh và giới hạn. Bảy cơ chế
+khác nhau có thể xem xét: thiếu chứng cứ, chứng cứ bị bỏ qua, chờ agent hỗ trợ,
+quá hẹn phản hồi, trừ tiền nhưng không tạo đơn, sai thông tin liên hệ, yêu cầu
+trả thêm ship; còn có ca không nhận đơn và bối cảnh an toàn/chính sách.
+Không gọi các ca này đều là người dùng nhận thiếu món. TV4 cần duyệt, giữ ID
+nguồn và chọn case phù hợp Spec; TV3 không viết input/expected hay sửa benchmark.
+Không tuyên bố đã đạt ≥7/20 case nguồn thật trước khi TV4 chốt eligibility.
 
-| | Vai | Gặp pain? | Số lần / 1 tháng qua | Lần gần nhất mất | Đang xoay xở bằng |
-|---|---|---|---|---|---|
-| P1 | | | | | |
-| P2 | | | | | |
-| P3 | | | | | |
+## 4. Những điểm phải báo leader trước khi tích hợp
 
-## 3. ≥5 trích dẫn hoặc ví dụ nguyên văn (có nguồn, bỏ tên)
+- Mẫu chính chưa xác nhận trực tiếp pain hẹp; giữ lát cắt hay đổi cần leader quyết định.
+- Impact 540 phút/tháng chỉ là kịch bản CP2 tự ước tính, không phải survey 100 khách.
+- Baseline benchmark có 12 câu tự viết, chưa có nguồn thật được tích hợp; AI thật
+  và mở rộng bộ thử là ownership TV2/TV4, không tự sửa trong nhánh TV3.
+- Chưa có review theo cặp/người học kiểm độc lập. Không ghi đã diễn ra hoặc đủ mọi điểm R1/R2.
+- Người học yêu cầu **không push**: tài liệu nhiệm vụ có bước commit/push/PR nhưng
+  không thực hiện các bước này; để người học xem diff và tự stage/commit/push.
 
-1. "…" — P_ / dòng data __ / phiếu khảo sát __
-2.
-3.
-4.
-5.
+## 5. Kiểm tra lại
 
-## 4. Các nguồn có khớp nhau không
+```powershell
+py -3.12 evidence/count.py
+py -3.12 evidence/verify.py
+git diff --check
+git status --short
+```
 
-Chưa đủ dữ liệu trực tiếp để đối chiếu các nguồn.
+Python 3.12.9 đã có; phần research và script chỉ dùng standard library nên không
+cần pip install. Không cần API key/model để kiểm evidence. Không đọc/ghi .env.
 
-## 5. Kết luận
+## 6. AI log và quyền riêng tư
 
-Giả thuyết ở `evidence/hypothesis.md` chưa được kiểm chứng; chưa thể kết luận đúng, sai hay cần đổi.
+AI đọc tài liệu giao việc, guide/rubric/track và code để hiểu ngữ cảnh; thu RSS
+công khai, gợi ý/rà nhãn trên 150 excerpt, viết script đếm, sổ nguồn và bảng impact.
+Các dữ liệu nguồn có thật; **nhãn và phân tích có AI hỗ trợ, chưa phải người học
+tự kiểm tay**. Không bịa phỏng vấn, người tham gia, giờ hẹn, số survey, hoạt động
+cặp hoặc hiệu quả sản phẩm. Người học cần review diff và giải thích được kết quả.
 
-## Lịch hẹn (dùng cho CP2 — chỉ ghi vai và giờ, không tên)
+Collector bỏ tác giả/title/raw payload, giữ tối đa một câu/25 từ gốc mỗi review;
+RV113 không trích vì có thể nêu tên riêng. Không công bố dữ liệu đơn thật hoặc
+email/điện thoại. Không có giấy phép mở cho cả kho; chỉ trích ngắn có nguồn để
+phân tích, không tái phân phối nguyên nội dung. Chưa có người duyệt pháp lý/quyền
+tái sử dụng toàn bộ; không nhận đã được cấp quyền đó.
 
-| Vai | Giờ hẹn | Đã xong? |
-|---|---|---|
-| | | |
+Lỗi môi trường đã xử lý: Python Windows không có tzdata; collector dùng timezone
+UTC+7 chuẩn, không tạo dependency mới. Network đọc nguồn và ghi evidence ở repo
+Day15 dùng quyền giới hạn đúng thao tác; không thay đổi cấu hình hệ thống.

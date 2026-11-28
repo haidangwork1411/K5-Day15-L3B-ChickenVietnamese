@@ -1,0 +1,51 @@
+{
+  "formula": "N_people * F_events_per_affected_person_month * C_active_minutes_per_event",
+  "all_inputs_are_estimates": true,
+  "population_is_not_a_survey": 100,
+  "directions": [
+    {
+      "name": "thiếu món",
+      "N": 20,
+      "F": 1.8,
+      "C": 15,
+      "minutes": 540
+    },
+    {
+      "name": "sai món",
+      "N": 15,
+      "F": 1.2,
+      "C": 10,
+      "minutes": 180
+    },
+    {
+      "name": "giao trễ",
+      "N": 25,
+      "F": 1.2,
+      "C": 5,
+      "minutes": 150
+    }
+  ],
+  "sensitivity": [
+    {
+      "scenario": "thấp",
+      "N": 5,
+      "F": 1,
+      "C": 5,
+      "minutes": 25
+    },
+    {
+      "scenario": "cơ sở CP2",
+      "N": 20,
+      "F": 1.8,
+      "C": 15,
+      "minutes": 540
+    },
+    {
+      "scenario": "cao",
+      "N": 40,
+      "F": 3,
+      "C": 30,
+      "minutes": 3600
+    }
+  ]
+}
